@@ -47,8 +47,6 @@
     <None Include="imgui.ini">
       <DeploymentContent>true</DeploymentContent>
     </None>
-    <None Include="src\files\edges.csv" />
-    <None Include="src\files\nodes.csv" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

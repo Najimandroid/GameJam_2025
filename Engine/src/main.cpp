@@ -5,6 +5,12 @@
 
 #include <iostream>
 
+class Test
+{
+private:
+    int lol;
+};
+
 int main() 
 {
     sf::RenderWindow window(sf::VideoMode({ 500, 500 }), "IDF Map");
@@ -13,8 +19,8 @@ int main()
     sf::Clock deltaClock;
     float deltaTime = 0.f;
 
-    sf::CircleShape circle(50);
-    circle.setFillColor(sf::Color::Yellow);
+    sf::CircleShape circle(999);
+    circle.setFillColor(sf::Color::Green);
 
     while (window.isOpen()) 
     {
@@ -37,6 +43,8 @@ int main()
         window.draw(circle);
 
         ImGui::SFML::Render(window);
+
+        std::cout << "Lol\n";
 
         window.display();
     }

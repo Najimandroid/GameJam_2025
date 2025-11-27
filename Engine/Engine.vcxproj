@@ -41,12 +41,26 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(FileName)</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="src\core\Game.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\uis\UI_Manager.cpp" />
+    <ClCompile Include="src\uis\widgets\UI_Element.cpp" />
+    <ClCompile Include="src\uis\widgets\UI_Text.cpp" />
+    <ClCompile Include="src\uis\widgets\UI_TextButton.cpp" />
+    <ClCompile Include="src\uis\widgets\Ui_Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini">
       <DeploymentContent>true</DeploymentContent>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\core\Game.h" />
+    <ClInclude Include="src\uis\UI_Manager.h" />
+    <ClInclude Include="src\uis\widgets\UI_Element.h" />
+    <ClInclude Include="src\uis\widgets\UI_Text.h" />
+    <ClInclude Include="src\uis\widgets\UI_TextButton.h" />
+    <ClInclude Include="src\uis\widgets\UI_Texture.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -85,7 +99,9 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LibraryPath>$(SolutionDir)/lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -118,7 +134,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>sfml-graphics-s.lib;sfml-window-s.lib;sfml-system-s.lib;opengl32.lib;freetype.lib;winmm.lib;gdi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-graphics-s.lib;sfml-window-s.lib;sfml-system-s.lib;sfml-audio-s.lib;opengl32.lib;freetype.lib;winmm.lib;gdi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>sfml-window-s.lib;sfml-graphics-s.lib;sfml-audio-s.lib;gdi32.lib;winmm.lib;freetype.lib;opengl32.lib;sfml-system-s.lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

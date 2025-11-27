@@ -1,45 +1,12 @@
-#include "imgui.h"
-#include "imgui-SFML.h"
-
-#include <SFML/Graphics.hpp>
-
-#include <iostream>
+#include "core/Game.h"
 
 int main() 
 {
-    sf::RenderWindow window(sf::VideoMode({ 500, 500 }), "IDF Map");
-    ImGui::SFML::Init(window);
+	Game game;
 
-    sf::Clock deltaClock;
-    float deltaTime = 0.f;
+	game.run_game_loop();
 
-    sf::CircleShape circle(100);
-    circle.setFillColor(sf::Color::Green);
+	game.shut_down();
 
-    while (window.isOpen()) 
-    {
-        while (const auto event = window.pollEvent()) 
-        {
-            ImGui::SFML::ProcessEvent(window, *event);
-
-            if (event->is<sf::Event::Closed>()) 
-            {
-                window.close();
-            }
-        }
-
-		deltaTime = deltaClock.getElapsedTime().asSeconds();
-
-        ImGui::SFML::Update(window, deltaClock.restart());
-
-        window.clear();
-
-        window.draw(circle);
-
-        ImGui::SFML::Render(window);
-
-        window.display();
-    }
-
-    ImGui::SFML::Shutdown();
+	return 0;
 }

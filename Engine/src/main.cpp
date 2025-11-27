@@ -13,8 +13,8 @@ int main()
     sf::Clock deltaClock;
     float deltaTime = 0.f;
 
-    sf::CircleShape circle(600);
-    circle.setFillColor(sf::Color::Red);
+    sf::CircleShape circle(50);
+    circle.setFillColor(sf::Color::Yellow);
 
     while (window.isOpen()) 
     {

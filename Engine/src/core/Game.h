@@ -8,6 +8,7 @@
 #include <SFML/Audio.hpp>
 
 #include "../uis/UI_Manager.h"  
+#include "Map.h"  
 
 /*
  * Game class
@@ -27,14 +28,6 @@ public:
 
     // Starts the main game loop, updates game state, and renders each frame
     void run_game_loop();
-
-    // Called in run_game_loop() each frame before render();
-    void update();
-
-    // Called in run_game_loop() each frame after update();
-    void render_game();
-
-    void render_uis();
 
     // Shuts down the game and cleans up resources
     void shut_down();
@@ -84,4 +77,5 @@ private:
 
     // We'll add unique_ptrs of all our other systems
     std::unique_ptr<UI_Manager> m_uiManager;
+    std::unique_ptr<Map> m_map;
 };

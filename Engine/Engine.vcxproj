@@ -42,6 +42,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(FileName)</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="src\core\Game.cpp" />
+    <ClCompile Include="src\core\Map.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\uis\UI_Manager.cpp" />
     <ClCompile Include="src\uis\widgets\UI_Element.cpp" />
@@ -56,11 +57,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\Game.h" />
+    <ClInclude Include="src\core\Map.h" />
     <ClInclude Include="src\uis\UI_Manager.h" />
     <ClInclude Include="src\uis\widgets\UI_Element.h" />
     <ClInclude Include="src\uis\widgets\UI_Text.h" />
     <ClInclude Include="src\uis\widgets\UI_TextButton.h" />
     <ClInclude Include="src\uis\widgets\UI_Texture.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="assets\levels\Map.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

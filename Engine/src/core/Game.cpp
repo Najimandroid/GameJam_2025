@@ -3,7 +3,8 @@
 #include <memory>
 
 Game::Game():
-	m_uiManager(std::make_unique<UI_Manager>())
+	m_uiManager(std::make_unique<UI_Manager>()),
+	m_map(std::make_unique<Map>())
 {
 	m_window.create(sf::VideoMode::getDesktopMode(), "Game Jam 2025", sf::Style::None); //sf::Style::None
 	m_window.setFramerateLimit(m_frameRate);
@@ -16,6 +17,9 @@ Game::Game():
 
 void Game::run_game_loop()
 {
+	// Temporary
+	m_map->LoadFromFile("assets/levels/Map.txt");
+
 	while (m_window.isOpen())
 	{
 		calculate_delta_time();
@@ -34,6 +38,7 @@ void Game::run_game_loop()
 
 		// Render game
 		m_window.setView(m_stageCamera);
+		m_map->Draw(m_window);
 
 		// Render UIs
 		m_window.setView(m_uiCamera);

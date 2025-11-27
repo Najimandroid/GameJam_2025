@@ -13,8 +13,8 @@ int main()
     sf::Clock deltaClock;
     float deltaTime = 0.f;
 
-    sf::CircleShape circle(100);
-    circle.setFillColor(sf::Color::Green);
+    sf::CircleShape circle(600);
+    circle.setFillColor(sf::Color::Red);
 
     while (window.isOpen()) 
     {
@@ -31,12 +31,6 @@ int main()
 		deltaTime = deltaClock.getElapsedTime().asSeconds();
 
         ImGui::SFML::Update(window, deltaClock.restart());
-
-        ImGui::Begin("Test");
-
-        ImGui::Text("ImGui Test");
-
-        ImGui::End();
 
         window.clear();
 

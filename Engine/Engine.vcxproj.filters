@@ -39,6 +39,7 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Entity.cpp">
     <ClCompile Include="src\core\Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -59,6 +60,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="imgui.ini" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Entity.h">
     <ClInclude Include="src\core\Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -68,17 +73,5 @@
     <ClInclude Include="src\uis\widgets\UI_Element.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\uis\widgets\UI_Text.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\uis\widgets\UI_TextButton.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\uis\widgets\UI_Texture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="imgui.ini" />
   </ItemGroup>
 </Project>

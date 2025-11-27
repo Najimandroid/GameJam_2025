@@ -11,6 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="EntityManager.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="ImGui\imgui-SFML.cpp">
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">TurnOffAllWarnings</WarningLevel>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -43,6 +46,7 @@
     </ClCompile>
     <ClCompile Include="src\core\Game.cpp" />
     <ClCompile Include="src\core\Map.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\uis\UI_Manager.cpp" />
     <ClCompile Include="src\uis\widgets\UI_Element.cpp" />
@@ -66,6 +70,12 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="assets\levels\Map.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="EntityManager.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="Player.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

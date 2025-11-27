@@ -15,7 +15,7 @@ Game::Game():
 	init_cameras();
 }
 
-void Game::run_game_loop()
+void Game::runGameLoop()
 {
 	// Temporary
 	m_map->LoadFromFile("assets/levels/Map.txt");
@@ -50,7 +50,7 @@ void Game::run_game_loop()
 	ImGui::SFML::Shutdown();
 }
 
-void Game::shut_down()
+void Game::shutDown()
 {
 }
 

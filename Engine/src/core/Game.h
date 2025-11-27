@@ -27,10 +27,10 @@ public:
     Game();
 
     // Starts the main game loop, updates game state, and renders each frame
-    void run_game_loop();
+    void runGameLoop();
 
     // Shuts down the game and cleans up resources
-    void shut_down();
+    void shutDown();
 
     // Polls and processes all window events
     void poll_events();

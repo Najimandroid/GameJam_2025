@@ -4,9 +4,9 @@ int main()
 {
 	Game game;
 
-	game.run_game_loop();
+	game.runGameLoop();
 
-	game.shut_down();
+	game.shutDown();
 
 	return 0;
 }

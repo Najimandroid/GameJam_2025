@@ -14,9 +14,9 @@ EntityManager::~EntityManager()
 	allEnnemies.clear();
 	allEntities.clear();
 }
-void EntityManager::createPlayer(sf::Vector2f _pos, sf::Texture& _textPlayer, sf::Texture& _textPlayerJumpEffect, sf::Texture& _textPlayerLandEffect, float _speed, int _hp)
+void EntityManager::createPlayer(sf::Texture& _textPlayer, sf::Vector2f _pos, float _speed)
 {
-	std::shared_ptr<Player> p = std::make_shared<Player>(_pos, _textPlayer, _textPlayerJumpEffect, _textPlayerLandEffect, _speed, _hp);
+	std::shared_ptr<Player> p = std::make_shared<Player>(_textPlayer, _pos, _speed);
 	allPlayers.push_back(p);
 	allEntities.push_back(p);
 }

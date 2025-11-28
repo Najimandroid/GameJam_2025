@@ -1,6 +1,5 @@
 #include "HandleCollisions.h"
 
-
 HandleCollisions* HandleCollisions::getInstance()
 {
 	if (instance == nullptr) { instance = new HandleCollisions(); }

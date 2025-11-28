@@ -1,7 +1,6 @@
 #include "EntityManager.h"
 #include "TextureManager.h"
 
-
 EntityManager* EntityManager::getInstance()
 {
 	if (instance == nullptr) { instance = new EntityManager(); }

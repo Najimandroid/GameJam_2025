@@ -28,6 +28,7 @@ void Game::runGameLoop()
 
 	managerEntity->createPlayer(textureManager->getPlayerTextures(), sf::Vector2f(500, 0), 400);
 
+	m_uiManager->generate_menu();
 
 	while (m_window.isOpen())
 	{
@@ -39,8 +40,8 @@ void Game::runGameLoop()
 
 		//================================================
 		// Updates
-		m_uiManager->generate_test_menu();
-		managerEntity->getAllPlayers()[0]->update(m_deltaTime);
+	
+		managerEntity->getAllPlayers()[0]->update(0.016f);
 		//player.update(0.016f);
 
 		//================================================

@@ -1,5 +1,5 @@
 #include "Player.h"
-#include "HandleCollisions.h"
+#include "../systems/HandleCollisions.h"
 
 Player::Player(std::vector<std::shared_ptr<sf::Texture>>& _textures, sf::Vector2f _pos_, float _speed) : speed(_speed), Entity(*_textures[0], _pos_)
 {

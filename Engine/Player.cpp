@@ -1,22 +1,10 @@
 #include "Player.h"
 #include "HandleCollisions.h"
 
-Player::Player(sf::Texture& _texture, sf::Vector2f _pos_, float _speed) : speed(_speed), Entity(_texture, _pos_) 
+Player::Player(std::vector<std::shared_ptr<sf::Texture>>& _textures, sf::Vector2f _pos_, float _speed) : speed(_speed), Entity(*_textures[0], _pos_)
 {
-	sf::Texture textureIdle;
-	if (!textureIdle.loadFromFile("assets/textures/Player/idle.png"))
-	{
-		std::cerr << "failed to load idle texture";
-	}
-
-	sf::Texture textureWalk;
-	if (!textureWalk.loadFromFile("assets/textures/Player/walk.png"))
-	{
-		std::cerr << "failed to load walk texture";
-	}
-
-	textures.emplace(PlayerState::Idle, std::make_shared<sf::Texture>(textureIdle));
-	textures.emplace(PlayerState::Walk, std::make_shared<sf::Texture>(textureWalk));
+	textures.emplace(PlayerState::Idle, _textures[0]);
+	textures.emplace(PlayerState::Walk, _textures[1]);
 
 	animationCooldowns.emplace(PlayerState::Idle, 0.2f);
 	animationCooldowns.emplace(PlayerState::Walk, 0.05f);

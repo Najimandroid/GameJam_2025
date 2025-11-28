@@ -21,10 +21,12 @@ void Game::runGameLoop()
 	// Temporary
 	managerMap->LoadFromFile("assets/levels/Map.txt");
 
+	TextureManager* textureManager = TextureManager::getInstance();
+
 	sf::Texture texture;
 	texture.loadFromFile("assets/textures/Player/Idle.png");
 
-	managerEntity->createPlayer(texture, sf::Vector2f(200, 200), 50);
+	Player player(textureManager->getPlayerTextures(), sf::Vector2f(500, 500), 400);
 
 	while (m_window.isOpen())
 	{

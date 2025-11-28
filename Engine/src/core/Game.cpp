@@ -39,6 +39,17 @@ void Game::runGameLoop()
 {
 	m_uiManager->generate_menu();
 
+	// background
+	sf::Texture backgroundTexture;
+	backgroundTexture.loadFromFile("assets/textures/backgroundLevel.png");
+	sf::Sprite backgroundSprite(backgroundTexture);
+	backgroundSprite.setPosition({ 0.f, 0.f });
+	backgroundSprite.setColor(sf::Color(100, 100, 100));
+	backgroundSprite.setScale({
+		static_cast<float>(m_logicalResolution.x) / backgroundTexture.getSize().x,
+		static_cast<float>(m_logicalResolution.y) / backgroundTexture.getSize().y
+		});
+
 	while (m_window.isOpen())
 	{
 		calculate_delta_time();
@@ -82,6 +93,9 @@ if (intersectionOpt.has_value())
 		m_window.clear();
 
 		// Render game
+		m_window.setView(m_uiCameraReal);
+		m_window.draw(backgroundSprite);
+
 		if (managerMap->isLoaded())
 		{
 			m_stageCamera.setCenter(managerEntity->getAllPlayers()[0]->getPos());

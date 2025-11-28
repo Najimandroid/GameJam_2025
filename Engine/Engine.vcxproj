@@ -71,7 +71,9 @@
     <ClInclude Include="src\uis\widgets\UI_Text.h" />
     <ClInclude Include="src\uis\widgets\UI_TextButton.h" />
     <ClInclude Include="src\uis\widgets\UI_Texture.h" />
-    <ClInclude Include="src\core\systems\TextureManager.h" />
+    <ClInclude Include="src\core\systems\TextureManager.h">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="assets\levels\MainMenu.txt" />

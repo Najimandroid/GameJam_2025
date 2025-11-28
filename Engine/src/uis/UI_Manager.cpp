@@ -81,18 +81,16 @@ void UI_Manager::generate_menu()
         "assets/textures/Background.png"
     );
 
-    auto title = std::make_shared<UI_Text>(
-        sf::Vector2f{ 650.f, 100.f },
-        sf::Vector2f{ 1000.f, 1000.f },
-        "  There Is No Bug ",
-        70
+    auto title = std::make_shared<UI_Texture>(
+        sf::Vector2f{ 100.f, 100.f },
+        sf::Vector2f{ 860.f, 330.f },
+        "assets/textures/title.png"
     );
-    
 
     auto play = std::make_shared<UI_TextButton>(
-        sf::Vector2f{ 700.f, 500.f },
-        sf::Vector2f{ 200, 190 },
-        "   "
+        sf::Vector2f{ 200.f , 480.f },
+        sf::Vector2f{ 400 , 200 },
+        ""
     );
     play->set_fill_color(sf::Color::Transparent);
     play->set_callback(
@@ -108,25 +106,22 @@ void UI_Manager::generate_menu()
     );
 
     auto assetPlay = std::make_shared<UI_Texture>(
-        sf::Vector2f{ 700.f , 500.f },
-        sf::Vector2f{ 306 , 187 },
+        sf::Vector2f{ 200.f , 480.f },
+        sf::Vector2f{ 400 , 200 },
         "assets/textures/start.png"
     );
 
     auto exit = std::make_shared<UI_TextButton>(
-        sf::Vector2f{ 1100.f, 500.f },
-        sf::Vector2f{ 200.f, 190.f },
-
-        "   "
+        sf::Vector2f{ 600.f , 480.f },
+        sf::Vector2f{ 400 , 200 },
+        ""
     );
     exit->set_fill_color(sf::Color::Transparent);
     auto assetExit = std::make_shared<UI_Texture>(
-        sf::Vector2f{ 1100 , 500 },
-        sf::Vector2f{ 306 , 187 },
+        sf::Vector2f{ 600.f , 480.f },
+        sf::Vector2f{ 400 , 200 },
         "assets/textures/quit.png"
     );
-
-    
 
     add_ui_element(assetBackground);
 

@@ -11,45 +11,15 @@ Map* Map::getInstance()
 void Map::LoadTexture()
 {
     m_tileSize = 120.0f;
-    if (!m_groundTexture.loadFromFile("assets/textures/placeholder_tile_ground.png"))
+    if (!m_groundTexture.loadFromFile("assets/textures/sol.png"))
     {
         std::cerr << "Error: Failed to load ground texture\n";
     }
 
-    if (!m_wallTexture.loadFromFile("assets/textures/placeholder_tile_ground.png"))
+    if (!m_wallTexture.loadFromFile("assets/textures/sol.png"))
     {
         std::cerr << "Error: Failed to load wall texture\n";
-    }
-
-    if (!m_vine1Texture.loadFromFile("assets/textures/placeholder_tile_ground.png"))
-    {
-        std::cerr << "Error: Failed to load vine1 texture\n";
-    }
-
-    if (!m_vine2Texture.loadFromFile("assets/textures/placeholder_tile_ground.png"))
-    {
-        std::cerr << "Error: Failed to load vine2 texture\n";
-    }
-
-    if (!m_platform.loadFromFile("assets/textures/placeholder_tile_ground.png"))
-    {
-        std::cerr << "Error: Failed to load Platform texture\n";
-    }
-
-    if (!m_platform2.loadFromFile("assets/textures/placeholder_tile_ground.png"))
-    {
-        std::cerr << "Error: Failed to load Platform2 texture\n";
-    }
-
-    if (!m_platform3.loadFromFile("assets/textures/placeholder_tile_ground.png"))
-    {
-        std::cerr << "Error: Failed to load Platform3 texture\n";
-    }
-
-    if (!m_platform4.loadFromFile("assets/textures/placeholder_tile_ground.png"))
-    {
-        std::cerr << "Error: Failed to load Platform4 texture\n";
-    }
+    }  
 }
 
 bool Map::LoadFromFile(const std::string& filePath)
@@ -112,49 +82,7 @@ void Map::CreateTile(char symbol, float x, float y)
         break;
     }
 
-    case '*':
-    {
-        sf::Sprite tile(m_vine1Texture);
-        tile.setPosition(sf::Vector2f(x, y));
-        m_tiles.push_back(tile);
-
-        m_slowBounds.push_back(sf::FloatRect({ x, y }, { m_tileSize, m_tileSize }));
-        break;
-    }
-
-    case '+':
-    {
-        sf::Sprite tile(m_vine2Texture);
-        tile.setPosition(sf::Vector2f(x, y));
-        m_tiles.push_back(tile);
-
-        m_slowBounds.push_back(sf::FloatRect({ x, y }, { m_tileSize, m_tileSize }));
-        break;
-    }
-
-    case '1': // platform
-    {
-        sf::Sprite tile(m_platform);
-        tile.setPosition(sf::Vector2f(x, y));
-        m_tiles.push_back(tile);
-        break;
-    }
-
-    case '2': // platform2
-    {
-        sf::Sprite tile(m_platform2);
-        tile.setPosition(sf::Vector2f(x, y));
-        m_tiles.push_back(tile);
-        break;
-    }
-
-    case '4': // platform4
-    {
-        sf::Sprite tile(m_platform4);
-        tile.setPosition(sf::Vector2f(x, y));
-        m_tiles.push_back(tile);
-        break;
-    }
+   
 
     default:
         break;

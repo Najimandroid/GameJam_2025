@@ -2,13 +2,13 @@
 #include "../systems/HandleCollisions.h"
 
 Player::Player(std::vector<std::shared_ptr<sf::Texture>>& _textures, sf::Vector2f _pos_, float _speed) : speed(_speed), Entity(*_textures[0], _pos_)
-{
+{	
 	textures.emplace(PlayerState::IDLE, _textures[0]);
 	textures.emplace(PlayerState::WALKING, _textures[1]);
-	textures.emplace(PlayerState::JUMPING, _textures[0]);
+	textures.emplace(PlayerState::JUMPING, _textures[2]);
 
 	animationCooldowns.emplace(PlayerState::IDLE, 0.2f);
-	animationCooldowns.emplace(PlayerState::JUMPING, 0.2f);
+	animationCooldowns.emplace(PlayerState::JUMPING, 0.5f);
 	animationCooldowns.emplace(PlayerState::WALKING, 0.05f);
 	 
 	state = PlayerState::IDLE;
@@ -20,6 +20,11 @@ Player::Player(std::vector<std::shared_ptr<sf::Texture>>& _textures, sf::Vector2
 	
 	m_hitbox.setOrigin({ 1.f, 0.f });
 	sprite.setOrigin({ 1.f, 0.f });
+
+	/*for (auto& [state_, tex] : textures)
+	{
+		std::cout << tex->getSize().x << std::endl;
+	}*/
 }
 
 
@@ -42,7 +47,8 @@ void Player::handleInput(float dt)
 		if (canWalkLeft)
 		{
 			velocity.x -= speed;
-			setState(PlayerState::WALKING);
+			if (isGrounded)
+				setState(PlayerState::WALKING);
 			sprite.setScale({ -scale, scale });
 		}
 	}
@@ -51,7 +57,8 @@ void Player::handleInput(float dt)
 		if (canWalkRight)
 		{
 			velocity.x += speed;
-			setState(PlayerState::WALKING);
+			if (isGrounded)
+				setState(PlayerState::WALKING);
 			sprite.setScale({ scale, scale });
 		}
 	}
@@ -62,6 +69,10 @@ void Player::handleInput(float dt)
 		isJumping = true;
 		isGrounded = false;
 		setState(PlayerState::JUMPING);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LShift))
+	{
+		HandleTeleport();
 	}
 }
 
@@ -96,28 +107,25 @@ void Player::setState(PlayerState newState)
 	}
 }
 
-void Player::HandleAutoTeleport(float dt)
+void Player::HandleTeleport()
 {
 	// Increase timer
-	m_teleportTimer += dt;
-
 	// Check if interval reached
-	if (m_teleportTimer >= TELEPORT_INTERVAL)
+	if (teleportCooldown.getElapsedTime().asSeconds() >= 2.f)
 	{
-		m_teleportTimer = 0.0f;
-
+		teleportCooldown.restart();
 		// Random side: 0 = left, 1 = right
 		int side = rand() % 2;
 
 		if (side == 0)
 		{
-			// Teleport left
-			pos.x = 50.0f;   // Example left position
+			
+			pos.x -= 500.f;  // Example left position
 		}
 		else
 		{
 			// Teleport right
-			pos.x = 1800.0f; // Example right position
+			pos.x += 500.f; // Example right position
 		}
 
 		// Update hitbox and sprite positions
@@ -135,7 +143,6 @@ void Player::update(float dt)
 {
 	handleInput(dt);
 	animate(dt);
-	//HandleAutoTeleport(dt);
 
 	// Appliquer la gravité
 	velocity.y += gravity * dt;
@@ -159,6 +166,8 @@ void Player::update(float dt)
 		{
 			isGrounded = true;
 			isJumping = false;
+			if (state == PlayerState::JUMPING)
+				setState(PlayerState::IDLE);
 		}
 		else if (velocity.y < 0) // plafond
 		{
@@ -184,6 +193,30 @@ void Player::update(float dt)
 			m_hitbox.getPosition().y - m_hitbox.getSize().y / 2.f,
 		}
 		);
+
+	for (const auto& deadly : managerMap->GetDeadlyBounds())
+	{
+		// Check deadly collision using findIntersection
+		if (m_hitbox.getGlobalBounds().findIntersection(deadly).has_value())
+		{
+			// Player dies or respawns here
+			pos = managerMap->GetPlayerSpawn();
+			m_hitbox.setPosition(pos);
+
+			sprite.setPosition(
+				{
+					pos.x + m_hitbox.getSize().x / 2.f,
+					pos.y - m_hitbox.getSize().y / 2.f
+				});
+
+			velocity = { 0.f, 0.f };
+			isGrounded = false;
+
+			std::cout << "Player died: deadly tile collision\n";
+
+			return; // stop update for this frame
+		}
+	}
 }
 
 
@@ -204,12 +237,18 @@ bool Player::collides(const sf::Vector2f& testPos)
 
 void Player::draw(sf::RenderWindow& window)
 {
-	window.draw(m_hitbox);
+	/*for (auto& [state_, tex] : textures)
+	{
+		if (tex.get() == &getSprite().getTexture())
+			std::cout << static_cast<int>(state_) << std::endl;
+	}*/
+	//window.draw(m_hitbox);
 	window.draw(sprite);
 }
 
 void Player::animate(float dt)
 {
+	
 	animationTime += dt;
 
 	if (animationTime > animationCooldowns[state])

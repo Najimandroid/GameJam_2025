@@ -90,6 +90,17 @@ void UI_Manager::generate_menu()
         "   "
     );
     play->set_fill_color(sf::Color::Transparent);
+    play->set_callback(
+        [this]()
+        {
+            m_pendingAction = [this]()
+                {
+                    m_launchGameCallback();
+                    m_uiElements.clear();
+                };
+        }
+    );
+
     auto assetPlay = std::make_shared<UI_Texture>(
         sf::Vector2f{ 700.f , 500.f },
         sf::Vector2f{ 306 , 187 },
@@ -212,4 +223,9 @@ bool UI_Manager::is_mouse_over_ui(const sf::Vector2i& worldPosition) const
         if (b.contains(static_cast<sf::Vector2f>(worldPosition))) return true;
     }
     return false;
+}
+
+void UI_Manager::set_game_launch_callback(std::function<void()> callback)
+{
+    m_launchGameCallback = callback;
 }

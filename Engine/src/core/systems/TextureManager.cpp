@@ -14,8 +14,15 @@ TextureManager::TextureManager()
 		std::cerr << "failed to load walk texture";
 	}
 
-	playerTextures.push_back(std::make_shared<sf::Texture>(textureIdle));
-	playerTextures.push_back(std::make_shared<sf::Texture>(textureWalk));
+	sf::Texture textureJump;
+	if (!textureJump.loadFromFile("assets/textures/Player/jump.png"))
+	{
+		std::cerr << "failed to load jump texture";
+	}
+
+	playerTextures.emplace_back(std::make_shared<sf::Texture>(textureIdle));
+	playerTextures.emplace_back(std::make_shared<sf::Texture>(textureWalk));
+	playerTextures.emplace_back(std::make_shared<sf::Texture>(textureJump));
 }
 
 

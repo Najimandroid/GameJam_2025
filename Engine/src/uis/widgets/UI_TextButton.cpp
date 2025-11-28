@@ -129,7 +129,6 @@ void UI_TextButton::handle_event(const sf::Event& event, const sf::RenderWindow&
             // Check if click is inside the button's bounds
             if (m_shape.getGlobalBounds().contains(static_cast<sf::Vector2f>(worldPos)))
             {
-                std::cout << "Button clicked\n";
                 if (m_callback) m_callback(); // execute callback if set
             }
         }

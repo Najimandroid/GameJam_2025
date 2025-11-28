@@ -242,7 +242,7 @@ void Player::draw(sf::RenderWindow& window)
 		if (tex.get() == &getSprite().getTexture())
 			std::cout << static_cast<int>(state_) << std::endl;
 	}*/
-	window.draw(m_hitbox);
+	//window.draw(m_hitbox);
 	window.draw(sprite);
 }
 

@@ -63,6 +63,10 @@ void Player::handleInput(float dt)
 		isGrounded = false;
 		setState(PlayerState::JUMPING);
 	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LShift))
+	{
+		HandleTeleport();
+	}
 }
 
 sf::FloatRect Player::getHB()
@@ -96,28 +100,25 @@ void Player::setState(PlayerState newState)
 	}
 }
 
-void Player::HandleAutoTeleport(float dt)
+void Player::HandleTeleport()
 {
 	// Increase timer
-	m_teleportTimer += dt;
-
 	// Check if interval reached
-	if (m_teleportTimer >= TELEPORT_INTERVAL)
+	if (teleportCooldown.getElapsedTime().asSeconds() >= 2.f)
 	{
-		m_teleportTimer = 0.0f;
-
+		teleportCooldown.restart();
 		// Random side: 0 = left, 1 = right
 		int side = rand() % 2;
 
 		if (side == 0)
 		{
-			// Teleport left
-			pos.x = 50.0f;   // Example left position
+			
+			pos.x -= 500.f;  // Example left position
 		}
 		else
 		{
 			// Teleport right
-			pos.x = 1800.0f; // Example right position
+			pos.x += 500.f; // Example right position
 		}
 
 		// Update hitbox and sprite positions
@@ -135,7 +136,6 @@ void Player::update(float dt)
 {
 	handleInput(dt);
 	animate(dt);
-	//HandleAutoTeleport(dt);
 
 	// Appliquer la gravité
 	velocity.y += gravity * dt;
@@ -184,6 +184,30 @@ void Player::update(float dt)
 			m_hitbox.getPosition().y - m_hitbox.getSize().y / 2.f,
 		}
 		);
+
+	for (const auto& deadly : managerMap->GetDeadlyBounds())
+	{
+		// Check deadly collision using findIntersection
+		if (m_hitbox.getGlobalBounds().findIntersection(deadly).has_value())
+		{
+			// Player dies or respawns here
+			pos = managerMap->GetPlayerSpawn();
+			m_hitbox.setPosition(pos);
+
+			sprite.setPosition(
+				{
+					pos.x + m_hitbox.getSize().x / 2.f,
+					pos.y - m_hitbox.getSize().y / 2.f
+				});
+
+			velocity = { 0.f, 0.f };
+			isGrounded = false;
+
+			std::cout << "Player died: deadly tile collision\n";
+
+			return; // stop update for this frame
+		}
+	}
 }
 
 

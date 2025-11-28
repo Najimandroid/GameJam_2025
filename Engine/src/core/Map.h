@@ -15,6 +15,7 @@ public:
     sf::Vector2f GetItemSpawn() const;
     std::vector<sf::FloatRect> GetCollisionBounds() const;
     std::vector<sf::FloatRect> GetSlowBounds() const;
+    std::vector<sf::FloatRect> GetDeadlyBounds() const;
     void Reset();
     bool isLoaded() { return loaded; }
     void update(float dt);
@@ -26,6 +27,7 @@ private:
     std::vector<sf::Sprite> m_tiles;
     std::vector<sf::FloatRect> m_slowBounds;
     std::vector<sf::RectangleShape> m_debugColliders;
+    std::vector<sf::Sprite> m_deadlyBounds;
 
     std::string m_filePath;
 
@@ -37,6 +39,7 @@ private:
     sf::Texture m_platform2;
     sf::Texture m_platform3;
     sf::Texture m_platform4;
+    sf::Texture m_deadlyTexture;
 
     float m_tileSize;
 

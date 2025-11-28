@@ -2,7 +2,9 @@
 
 Entity::Entity(sf::Texture& texture, sf::Vector2f pos_) : sprite(texture), pos(pos_)
 {
-
+    sprite.setTextureRect(sf::IntRect({ 0, 0 }, { 16, 32 }));
+    sf::FloatRect bounds = sprite.getLocalBounds();
+    sprite.setOrigin({ bounds.size.x / 2.f, bounds.size.y / 2.f });
 }
 
 sf::Sprite& Entity::getSprite()

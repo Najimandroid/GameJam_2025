@@ -23,5 +23,6 @@ public:
 	float getSpeed();
 
 	void setSpeed(float newSpeed);
+
 };
 

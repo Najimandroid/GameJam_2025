@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityManager.cpp" />
+    <ClCompile Include="HandleCollisions.cpp" />
     <ClCompile Include="ImGui\imgui-SFML.cpp">
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">TurnOffAllWarnings</WarningLevel>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -59,6 +60,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="HandleCollisions.h" />
     <ClInclude Include="src\core\Game.h" />
     <ClInclude Include="src\core\Map.h" />
     <ClInclude Include="src\uis\UI_Manager.h" />

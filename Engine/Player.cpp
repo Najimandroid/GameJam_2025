@@ -1,4 +1,7 @@
 #include "Player.h"
+#include "HandleCollisions.h"
+
+HandleCollisions collision;
 
 Player::Player(sf::Texture& _texture, sf::Vector2f _pos_, float _speed) : speed(_speed), Entity(_texture, _pos_) {
 
@@ -22,7 +25,7 @@ void Player::handleInput()
 
 sf::FloatRect Player::getHB()
 {
-	return sf::FloatRect();
+	return getSprite().getGlobalBounds();
 }
 
 float Player::getSpeed()
@@ -40,9 +43,12 @@ void Player::setSpeed(float newSpeed)
 void Player::update(float dt)
 {
 	handleInput();
+	if (collision.collisions() > 0) {
+		velocity = { 0 , 0 };
+	}
 }
 
 void Player::draw(sf::RenderWindow& window)
 {
-	/*window.draw(sprite);*/
+	window.draw(getSprite());
 }

@@ -16,11 +16,13 @@ EntityManager::~EntityManager()
 	allEnnemies.clear();
 	allEntities.clear();
 }
-void EntityManager::createPlayer(std::vector<std::shared_ptr<sf::Texture>>& _textPlayer, sf::Vector2f _pos, float _speed, UI_Manager* uimanager)
+std::shared_ptr<Player> EntityManager::createPlayer(std::vector<std::shared_ptr<sf::Texture>>& _textPlayer, sf::Vector2f _pos, float _speed, UI_Manager* uimanager)
 {
 	std::shared_ptr<Player> p = std::make_shared<Player>(_textPlayer, _pos, _speed, uimanager);
 	allPlayers.push_back(p);
 	allEntities.push_back(p);
+
+	return p;
 }
 
 std::vector<std::shared_ptr<Entity>> EntityManager::getAllPlayers() const { return allPlayers; }

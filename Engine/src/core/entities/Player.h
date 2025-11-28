@@ -1,6 +1,9 @@
 #pragma once
 #include "Entity.h"
 #include "../../uis/UI_Manager.h"
+#include "victoire.h"
+
+
 enum class PlayerState
 {
 	IDLE,
@@ -29,7 +32,8 @@ private:
 	sf::Clock teleportCooldown;
 	void HandleTeleport();
 	const float TELEPORT_INTERVAL = 10.0f;
-
+	
+	EndGameItem* egi;
 	
 public:
 
@@ -43,6 +47,8 @@ public:
 public:
 
 	Player(std::vector<std::shared_ptr<sf::Texture>>& _textures, sf::Vector2f pos_, float _speed, UI_Manager* uiManager);
+
+	void add_end_game_item(EndGameItem* egi);
 
 	void update(float dt);
 

@@ -30,6 +30,11 @@ Player::Player(std::vector<std::shared_ptr<sf::Texture>>& _textures, sf::Vector2
 	}*/
 }
 
+void Player::add_end_game_item(EndGameItem* egi_)
+{
+	egi = egi_;
+}
+
 
 void Player::handleInput(float dt)
 {
@@ -206,11 +211,11 @@ void Player::update(float dt)
 			pos = managerMap->GetPlayerSpawn();
 			m_hitbox.setPosition(pos);
 
-			/*sprite.setPosition(
+			sprite.setPosition(
 				{
 					pos.x + m_hitbox.getSize().x / 2.f,
 					pos.y - m_hitbox.getSize().y / 2.f
-				});*/
+				});
 			managerUI->game_over_menu();
 
 			velocity = { 0.f, 0.f };
@@ -220,6 +225,27 @@ void Player::update(float dt)
 
 			return; // stop update for this frame
 		}
+	}
+
+	if (m_hitbox.getGlobalBounds().findIntersection(egi->GetBounds()).has_value())
+	{
+		// Player dies or respawns here
+		pos = managerMap->GetPlayerSpawn();
+		m_hitbox.setPosition(pos);
+
+		sprite.setPosition(
+			{
+				pos.x + m_hitbox.getSize().x / 2.f,
+				pos.y - m_hitbox.getSize().y / 2.f
+			});
+		managerUI->win_menu();
+
+		velocity = { 0.f, 0.f };
+		isGrounded = false;
+
+		std::cout << "Player won\n";
+
+		return; // stop update for this frame
 	}
 }
 

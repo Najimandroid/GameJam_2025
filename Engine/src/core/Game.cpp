@@ -6,7 +6,7 @@ std::thread tCollisions(&HandleCollisions::collisions, managerCollisions);
 
 Game::Game():
 	m_uiManager(std::make_unique<UI_Manager>()),
-	m_endGameItem(sf::Vector2f(1000.f, 600.f), sf::Vector2f(32.f, 32.f))
+	m_endGameItem(sf::Vector2f(11000.f, 800.f), sf::Vector2f(32.f, 32.f))
 {
 	m_window.create(sf::VideoMode::getDesktopMode(), "Game Jam 2025", sf::Style::None); //sf::Style::None
 	m_window.setFramerateLimit(m_frameRate);
@@ -24,7 +24,8 @@ Game::Game():
 			sf::Texture texture;
 			texture.loadFromFile("assets/textures/Player/Idle.png");
 
-			managerEntity->createPlayer(textureManager->getPlayerTextures(), sf::Vector2f(500, 0), 400, m_uiManager.get());
+			auto p = managerEntity->createPlayer(textureManager->getPlayerTextures(), sf::Vector2f(500, 0), 400, m_uiManager.get());
+			p->add_end_game_item(&m_endGameItem);
 		}
 	);
 
@@ -95,12 +96,12 @@ if (intersectionOpt.has_value())
 
 		// Render UIs
 		m_window.setView(m_uiCamera);
-		m_endGameItem.Draw(m_window);
 
 		if (managerMap->isLoaded())
 		{
 			managerEntity->getAllPlayers()[0]->draw(m_window);
 			managerMap->DrawDebug(m_window);
+			m_endGameItem.Draw(m_window);
 		}
 
 		m_window.setView(m_uiCameraReal);

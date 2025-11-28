@@ -71,6 +71,7 @@ private:
     sf::Vector2f stageCamPos;
     sf::View m_uiCamera;           // Camera used to render UI elements
     sf::View m_stageCamera;        // Camera used to render the gameplay/stage
+    sf::View m_uiCameraReal;
 
     sf::Clock m_deltaClock;        // Clock to compute deltaTime between frames
     float m_deltaTime = 0.0f;      // Delta time in seconds since the last frame

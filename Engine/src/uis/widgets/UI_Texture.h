@@ -16,6 +16,9 @@ public:
     // Constructor: creates a texture element with given size, position, and texture path
     UI_Texture(sf::Vector2f position, sf::Vector2f size, const std::string& texturePath);
 
+    // Constructor: creates a texture element with given size, position, and texture path
+    UI_Texture(sf::Vector2f position, sf::Vector2f size, const std::string& texturePath, sf::IntRect Rect);
+
     // Update logic called every frame (no-op for static textures)
     void update(float deltaTime) override {}
 
@@ -30,6 +33,8 @@ public:
 
     // Get the bounding rectangle of the sprite (used for interaction detection)
     sf::FloatRect get_bounds() const override;
+
+    void set_texture_rect(sf::IntRect newRect);
 
 protected:
 

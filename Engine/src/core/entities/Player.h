@@ -24,8 +24,9 @@ private:
 	std::unordered_map<PlayerState, float> animationCooldowns;
 
 	PlayerState state;
-	void HandleAutoTeleport(float dt);
-	float m_teleportTimer = 0.0f;
+
+	sf::Clock teleportCooldown;
+	void HandleTeleport();
 	const float TELEPORT_INTERVAL = 10.0f;
 
 	

@@ -6,7 +6,9 @@ std::thread tCollisions(&HandleCollisions::collisions, managerCollisions);
 
 Game::Game():
 	m_uiManager(std::make_unique<UI_Manager>()),
-	m_endGameItem(sf::Vector2f(1000.f, 600.f), sf::Vector2f(32.f, 32.f))
+	m_endGameItem(sf::Vector2f(1000.f, 600.f), sf::Vector2f(32.f, 32.f)),
+	m_play(sf::Vector2f(700.f, 500.f), sf::Vector2f(200.f,190.f)),
+	m_quit(sf::Vector2f(1100.f, 500.f), sf::Vector2f(200.f, 190.f))
 
 
 {
@@ -88,6 +90,8 @@ void Game::runGameLoop()
 		m_window.setView(m_uiCamera);
 		m_uiManager->render_uis(m_window, m_uiCamera, m_stageCamera);
 		m_endGameItem.Draw(m_window);
+		m_play.Draw(m_window);
+		m_quit.Draw(m_window);
 		managerEntity->getAllPlayers()[0]->draw(m_window);
 		//std::cout << player->getPos().x << " " << player->getPos().y << std::endl;
 		//std::cout << m_uiCamera.getCenter().x << " " << m_uiCamera.getCenter().y << std::endl;

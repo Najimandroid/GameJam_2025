@@ -53,9 +53,9 @@ void Game::runGameLoop()
 
 		// Check collision between player and end game item
 		sf::FloatRect playerBounds = player->GetBounds();
-		sf::FloatRect itemBounds = m_endGameItem.GetBounds();
+		//sf::FloatRect itemBounds = m_endGameItem.GetBounds();
 
-		auto intersectionOpt = playerBounds.findIntersection(itemBounds);
+		/*auto intersectionOpt = playerBounds.findIntersection(itemBounds);
 
 		if (intersectionOpt.has_value())
 		{
@@ -67,7 +67,7 @@ void Game::runGameLoop()
 			if (tCollisions.joinable())
 				tCollisions.join();
 			break;
-		}
+		}*/
 		managerMap->update(m_deltaTime);
 
 		//================================================
@@ -77,14 +77,20 @@ void Game::runGameLoop()
 		// Render game
 		managerMap->DrawDebug(m_window);
 		m_stageCamera.setCenter(managerEntity->getAllPlayers()[0]->getPos());
+		m_uiCamera.move({ 30.f * m_deltaTime, 0.f });
 		m_window.setView(m_stageCamera);
 		managerMap->Draw(m_window);
 
+		//m_stageCamera.move({ 200.f * m_deltaTime, 0.f });
+		if (managerEntity->getAllPlayers()[0]->getPos().x > m_uiCamera.getCenter().x)
+			m_uiCamera.move({ (managerEntity->getAllPlayers()[0]->getPos().x - m_uiCamera.getCenter().x) * m_deltaTime, 0.f });
 		// Render UIs
 		m_window.setView(m_uiCamera);
 		m_uiManager->render_uis(m_window, m_uiCamera, m_stageCamera);
 		m_endGameItem.Draw(m_window);
 		managerEntity->getAllPlayers()[0]->draw(m_window);
+		//std::cout << player->getPos().x << " " << player->getPos().y << std::endl;
+		//std::cout << m_uiCamera.getCenter().x << " " << m_uiCamera.getCenter().y << std::endl;
 		//player.draw(m_window);
 
 		m_window.display();
@@ -167,7 +173,8 @@ void Game::init_cameras()
 
 	stageCamPos = m_stageCamera.getCenter() - (m_stageCamera.getSize() * 0.5f);
 
-	m_stageCamera.zoom(1.f);
+	m_stageCamera.zoom(2.f);
+	m_uiCamera.zoom(2.f);
 }
 
 void Game::debug_ui()

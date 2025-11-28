@@ -135,7 +135,7 @@ void Player::update(float dt)
 {
 	handleInput(dt);
 	animate(dt);
-	HandleAutoTeleport(dt);
+	//HandleAutoTeleport(dt);
 
 	// Appliquer la gravité
 	velocity.y += gravity * dt;

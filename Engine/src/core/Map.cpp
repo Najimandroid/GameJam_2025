@@ -104,6 +104,9 @@ void Map::CreateTile(char symbol, float x, float y)
 
 void Map::update(float dt)
 {
+    for (auto& tile : m_tiles)
+        tile.setPosition(tile.getPosition() - sf::Vector2f{ 30.f * dt, 0.f });
+        ;
     if (m_showDebug)
     {
         debugCooldown += dt;
@@ -113,6 +116,11 @@ void Map::update(float dt)
             m_showDebug = false;
             debugCooldown = 0.f;
         }
+    }
+
+    for (auto& dc : m_debugColliders)
+    {
+        dc.setPosition(dc.getPosition() - sf::Vector2f{ 30.f * dt, 0.f });
     }
 }
 
@@ -124,7 +132,7 @@ void Map::Draw(sf::RenderWindow& window)
 
 void Map::DrawDebug(sf::RenderWindow& window)
 {
-    int randomNum = rand() % 150 + 1;
+    int randomNum = rand() % 75 + 1;
 
     if (randomNum == 5 && debugCooldown == 0.f)
     {

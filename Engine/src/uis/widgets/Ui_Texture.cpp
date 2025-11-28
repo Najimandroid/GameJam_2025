@@ -29,6 +29,27 @@ UI_Texture::UI_Texture(sf::Vector2f position, sf::Vector2f size, const std::stri
     apply_scale();
 }
 
+UI_Texture::UI_Texture(sf::Vector2f position, sf::Vector2f size, const std::string& texturePath, sf::IntRect Rect) :
+    UI_Element(position, size),
+    m_sprite(m_texture) // initialize sprite with texture
+{
+    // Load the texture from file
+    if (!m_texture.loadFromFile(texturePath))
+    {
+        std::cerr << "Failed to load texture: " << texturePath << "\n";
+    }
+
+    // Assign the texture to the sprite and set its initial position
+    m_sprite.setTexture(m_texture);
+    m_sprite.setPosition(m_position);
+
+    // Set the texture rectangle to cover the full texture
+    m_sprite.setTextureRect(Rect);
+
+    // Scale sprite to match desired size while preserving aspect ratio
+    apply_scale();
+}
+
 /*
  * Draws the sprite to the window if it is visible.
  */
@@ -72,9 +93,14 @@ sf::FloatRect UI_Texture::get_bounds() const
     return m_sprite.getGlobalBounds();
 }
 
-/*
- * Calculates the scaling factor for the sprite to fit within m_size while preserving aspect ratio.
- */
+void UI_Texture::set_texture_rect(sf::IntRect newRect)
+{
+    m_sprite.setTextureRect(newRect);
+}
+
+
+ /*Calculates the scaling factor for the sprite to fit within m_size while preserving aspect ratio.*/
+ 
 void UI_Texture::apply_scale()
 {
     sf::Vector2u texSize = m_texture.getSize();

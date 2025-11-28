@@ -74,6 +74,7 @@
     <ClInclude Include="src\core\systems\TextureManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="assets\levels\MainMenu.txt" />
     <Text Include="assets\levels\Map.txt" />
   </ItemGroup>
   <ItemGroup>

@@ -85,4 +85,6 @@ private:
     // We'll add unique_ptrs of all our other systems
     std::unique_ptr<UI_Manager> m_uiManager;
     EndGameItem m_endGameItem;
+    EndGameItem m_play;
+    EndGameItem m_quit;
 };

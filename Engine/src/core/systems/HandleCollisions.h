@@ -1,6 +1,6 @@
 #pragma once
-#include "Player.h"
-#include "src/core/Map.h"
+#include "../entities/Player.h"
+#include "../Map.h"
 #include "EntityManager.h"
 
 class HandleCollisions

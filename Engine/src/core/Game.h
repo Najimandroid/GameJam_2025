@@ -2,18 +2,18 @@
 
 #include "imgui.h"
 #include "imgui-SFML.h"
-#include "../EntityManager.h"
-#include "../HandleCollisions.h"
+
+#include "systems/EntityManager.h"
+#include "systems/HandleCollisions.h"
+#include "systems/TextureManager.h"
+#include "Map.h"
+#include "entities/Player.h"
+#include "../uis/UI_Manager.h"  
 
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <thread>
-
-#include "../uis/UI_Manager.h"  
-#include "Map.h"  
-#include "../Player.h"
-#include "../TextureManager.h"
 
 /*
  * Game class

@@ -1,8 +1,8 @@
 #pragma once
 #include <vector>
 
-#include "Entity.h"
-#include "Player.h"
+#include "../entities/Entity.h"
+#include "../entities/Player.h"
 
 class EntityManager
 {

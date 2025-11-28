@@ -5,10 +5,12 @@ Player::Player(std::vector<std::shared_ptr<sf::Texture>>& _textures, sf::Vector2
 {
 	textures.emplace(PlayerState::IDLE, _textures[0]);
 	textures.emplace(PlayerState::WALKING, _textures[1]);
+	textures.emplace(PlayerState::JUMPING, _textures[0]);
 
 	animationCooldowns.emplace(PlayerState::IDLE, 0.2f);
+	animationCooldowns.emplace(PlayerState::JUMPING, 0.2f);
 	animationCooldowns.emplace(PlayerState::WALKING, 0.05f);
-
+	 
 	state = PlayerState::IDLE;
 
 	sprite.setScale({ scale, scale });

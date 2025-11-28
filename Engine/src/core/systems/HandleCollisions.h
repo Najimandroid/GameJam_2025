@@ -15,11 +15,12 @@ public:
 	bool isGameRunning = true;
 
 private:
-	std::vector<int> collisionSides;
+	std::vector<int> collisionSides{};
 
 	static HandleCollisions* instance;
 
 	HandleCollisions() = default;
+	~HandleCollisions();
 };
 
 extern HandleCollisions* managerCollisions;

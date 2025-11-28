@@ -8,11 +8,10 @@ HandleCollisions* HandleCollisions::getInstance()
 
 void HandleCollisions::collisions()
 {
+
 	collisionSides.reserve(4);
 
 	while (managerEntity->getAllPlayers().size() == 0) {}; // Wait for player
-
-	collisionSides.clear();
 
 	Player* player = dynamic_cast<Player*>(managerEntity->getAllPlayers()[0].get());
 
@@ -36,12 +35,17 @@ void HandleCollisions::collisions()
 			{
 				collisionSides.push_back(3); //Collision Left
 			}
-			if (sf::FloatRect({ player->getHB().position.x + player->getHB().size.x, player->getHB().position.y }, { 1, player->getHB().size.y }).findIntersection(wall)) 
+			if (sf::FloatRect({ player->getHB().position.x + player->getHB().size.x, player->getHB().position.y }, { 1, player->getHB().size.y }).findIntersection(wall))
 			{
 				collisionSides.push_back(4); //Collision Right
 			}
 		}
 	}
+}
+
+HandleCollisions::~HandleCollisions()
+{
+	delete instance;
 }
 
 HandleCollisions* HandleCollisions::instance = nullptr;

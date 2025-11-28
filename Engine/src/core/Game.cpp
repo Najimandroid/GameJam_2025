@@ -10,12 +10,17 @@ Game::Game():
 
 
 {
+<<<<<<< HEAD
 	
 	managerMap->LoadTexture();
+=======
+>>>>>>> 06ae5d43e6da86216a38b7e167c5d1ba797a5075
 	m_window.create(sf::VideoMode::getDesktopMode(), "Game Jam 2025", sf::Style::None); //sf::Style::None
 	m_window.setFramerateLimit(m_frameRate);
 	
 	center_window();
+
+	managerMap->LoadTexture();
 
 	ImGui::SFML::Init(m_window);
 	init_cameras();
@@ -23,6 +28,7 @@ Game::Game():
 
 void Game::runGameLoop()
 {
+
 	// Temporary
 	managerMap->LoadFromFile("assets/levels/Map.txt");
 
@@ -46,6 +52,7 @@ void Game::runGameLoop()
 		//================================================
 		// Updates
 	
+<<<<<<< HEAD
 		managerEntity->getAllPlayers()[0]->update(0.016f);
 		auto player = managerEntity->getAllPlayers()[0];
 		player->update(m_deltaTime);
@@ -68,13 +75,19 @@ void Game::runGameLoop()
 			break;
 		}
 
+=======
+		managerEntity->getAllPlayers()[0]->update(m_deltaTime);
+>>>>>>> 06ae5d43e6da86216a38b7e167c5d1ba797a5075
 		//player.update(0.016f);
+		managerMap->update(m_deltaTime);
 
 		//================================================
 		// Render
 		m_window.clear();
 
 		// Render game
+		managerMap->DrawDebug(m_window);
+		m_stageCamera.setCenter(managerEntity->getAllPlayers()[0]->getPos());
 		m_window.setView(m_stageCamera);
 		managerMap->Draw(m_window);
 
@@ -162,6 +175,8 @@ void Game::init_cameras()
 
 	m_uiCamera.setViewport(sf::FloatRect{ {0.f, 0.f}, {1.f, 1.f} });
 	m_stageCamera.setViewport(sf::FloatRect{ {0.f, 0.f}, {1.f, 1.f} });
+
+	stageCamPos = m_stageCamera.getCenter() - (m_stageCamera.getSize() * 0.5f);
 
 	m_stageCamera.zoom(1.f);
 }

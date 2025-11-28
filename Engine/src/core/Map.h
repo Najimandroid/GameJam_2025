@@ -8,7 +8,8 @@ class Map
 public:
     static Map* getInstance();
     bool LoadFromFile(const std::string& filePath);
-    void Draw(sf::RenderWindow& window) const;
+    void Draw(sf::RenderWindow& window);
+    void DrawDebug(sf::RenderWindow& window);
     void LoadTexture();
     sf::Vector2f GetPlayerSpawn() const;
     sf::Vector2f GetItemSpawn() const;
@@ -16,6 +17,7 @@ public:
     std::vector<sf::FloatRect> GetSlowBounds() const;
     void Reset();
 
+    void update(float dt);
 private:
     static Map* instance;
     Map(){}
@@ -23,6 +25,8 @@ private:
 
     std::vector<sf::Sprite> m_tiles;
     std::vector<sf::FloatRect> m_slowBounds;
+    std::vector<sf::RectangleShape> m_debugColliders;
+
     std::string m_filePath;
 
     sf::Texture m_wallTexture;
@@ -38,6 +42,10 @@ private:
 
     sf::Vector2f m_playerSpawn;
     sf::Vector2f m_itemSpawn;
+
+    bool m_showDebug = false;
+    float debugActivationTime = 2.5f;
+    float debugCooldown = 0.f;
 };
 
 extern Map* managerMap;

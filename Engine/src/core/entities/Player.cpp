@@ -2,13 +2,18 @@
 #include "../systems/HandleCollisions.h"
 
 Player::Player(std::vector<std::shared_ptr<sf::Texture>>& _textures, sf::Vector2f _pos_, float _speed) : speed(_speed), Entity(*_textures[0], _pos_)
-{
+{	
+	for (auto& tex : _textures)
+	{
+		std::cout << tex->getSize().x << std::endl;
+	}
+	
 	textures.emplace(PlayerState::IDLE, _textures[0]);
 	textures.emplace(PlayerState::WALKING, _textures[1]);
-	textures.emplace(PlayerState::JUMPING, _textures[0]);
+	textures.emplace(PlayerState::JUMPING, _textures[2]);
 
 	animationCooldowns.emplace(PlayerState::IDLE, 0.2f);
-	animationCooldowns.emplace(PlayerState::JUMPING, 0.2f);
+	animationCooldowns.emplace(PlayerState::JUMPING, 0.5f);
 	animationCooldowns.emplace(PlayerState::WALKING, 0.05f);
 	 
 	state = PlayerState::IDLE;
@@ -20,6 +25,11 @@ Player::Player(std::vector<std::shared_ptr<sf::Texture>>& _textures, sf::Vector2
 	
 	m_hitbox.setOrigin({ 1.f, 0.f });
 	sprite.setOrigin({ 1.f, 0.f });
+
+	/*for (auto& [state_, tex] : textures)
+	{
+		std::cout << tex->getSize().x << std::endl;
+	}*/
 }
 
 
@@ -42,7 +52,8 @@ void Player::handleInput(float dt)
 		if (canWalkLeft)
 		{
 			velocity.x -= speed;
-			setState(PlayerState::WALKING);
+			if (isGrounded)
+				setState(PlayerState::WALKING);
 			sprite.setScale({ -scale, scale });
 		}
 	}
@@ -51,7 +62,8 @@ void Player::handleInput(float dt)
 		if (canWalkRight)
 		{
 			velocity.x += speed;
-			setState(PlayerState::WALKING);
+			if (isGrounded)
+				setState(PlayerState::WALKING);
 			sprite.setScale({ scale, scale });
 		}
 	}
@@ -159,6 +171,8 @@ void Player::update(float dt)
 		{
 			isGrounded = true;
 			isJumping = false;
+			if (state == PlayerState::JUMPING)
+				setState(PlayerState::IDLE);
 		}
 		else if (velocity.y < 0) // plafond
 		{
@@ -204,12 +218,18 @@ bool Player::collides(const sf::Vector2f& testPos)
 
 void Player::draw(sf::RenderWindow& window)
 {
+	/*for (auto& [state_, tex] : textures)
+	{
+		if (tex.get() == &getSprite().getTexture())
+			std::cout << static_cast<int>(state_) << std::endl;
+	}*/
 	window.draw(m_hitbox);
 	window.draw(sprite);
 }
 
 void Player::animate(float dt)
 {
+	
 	animationTime += dt;
 
 	if (animationTime > animationCooldowns[state])

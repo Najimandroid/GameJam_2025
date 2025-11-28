@@ -184,6 +184,30 @@ void Player::update(float dt)
 			m_hitbox.getPosition().y - m_hitbox.getSize().y / 2.f,
 		}
 		);
+
+	for (const auto& deadly : managerMap->GetDeadlyBounds())
+	{
+		// Check deadly collision using findIntersection
+		if (m_hitbox.getGlobalBounds().findIntersection(deadly).has_value())
+		{
+			// Player dies or respawns here
+			pos = managerMap->GetPlayerSpawn();
+			m_hitbox.setPosition(pos);
+
+			sprite.setPosition(
+				{
+					pos.x + m_hitbox.getSize().x / 2.f,
+					pos.y - m_hitbox.getSize().y / 2.f
+				});
+
+			velocity = { 0.f, 0.f };
+			isGrounded = false;
+
+			std::cout << "Player died: deadly tile collision\n";
+
+			return; // stop update for this frame
+		}
+	}
 }
 
 

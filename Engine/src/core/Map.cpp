@@ -20,6 +20,10 @@ void Map::LoadTexture()
     {
         std::cerr << "Error: Failed to load wall texture\n";
     }  
+    if (!m_deadlyTexture.loadFromFile("assets/textures/kill.png"))
+    {
+        std::cerr << "Error: Failed to load deadly texture\n";
+    }
 }
 
 bool Map::LoadFromFile(const std::string& filePath)
@@ -60,6 +64,18 @@ bool Map::LoadFromFile(const std::string& filePath)
         m_debugColliders.push_back(rect);
     }
 
+    for (const auto& db : GetDeadlyBounds())
+    {
+        sf::RectangleShape rect(db.size);
+        rect.setPosition(db.position);
+
+        rect.setFillColor(sf::Color::Transparent);
+        rect.setOutlineThickness(2.f);
+        rect.setOutlineColor(sf::Color::Red);
+
+        m_debugColliders.push_back(rect);
+    }
+
     return true;
 }
 
@@ -94,6 +110,13 @@ void Map::CreateTile(char symbol, float x, float y)
         m_itemSpawn = { x, y };
         break;
     }
+    case 'X': // Deadly wall
+    {
+        sf::Sprite tile(m_deadlyTexture);
+        tile.setPosition(sf::Vector2f(x, y));
+        m_deadlyBounds.push_back(tile);
+        break;
+    }
 
    
 
@@ -106,7 +129,9 @@ void Map::update(float dt)
 {
     for (auto& tile : m_tiles)
         tile.setPosition(tile.getPosition() - sf::Vector2f{ 30.f * dt, 0.f });
-        ;
+    for (auto& tile : m_deadlyBounds)
+        tile.setPosition(tile.getPosition() - sf::Vector2f{ 30.f * dt, 0.f });
+
     if (m_showDebug)
     {
         debugCooldown += dt;
@@ -128,6 +153,9 @@ void Map::Draw(sf::RenderWindow& window)
 {
     for (const auto& tile : m_tiles)
         window.draw(tile);
+
+    for (const auto& dead : m_deadlyBounds)
+        window.draw(dead);
 }
 
 void Map::DrawDebug(sf::RenderWindow& window)
@@ -168,6 +196,19 @@ std::vector<sf::FloatRect> Map::GetSlowBounds() const
 {
     return m_slowBounds;
 }
+
+std::vector<sf::FloatRect> Map::GetDeadlyBounds() const
+{
+    std::vector<sf::FloatRect> deadlyBoundsRects;
+
+    for (auto& db : m_deadlyBounds)
+    {
+        deadlyBoundsRects.push_back(db.getGlobalBounds());
+    }
+
+    return deadlyBoundsRects;
+}
+
 
 void Map::Reset()
 {

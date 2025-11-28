@@ -1,6 +1,5 @@
 #include "Game.h"
 
-#include <memory>
 
 Game::Game():
 	m_uiManager(std::make_unique<UI_Manager>()),
@@ -12,6 +11,12 @@ Game::Game():
 
 	ImGui::SFML::Init(m_window);
 
+	sf::Texture tempPlayerTexture;
+	if (!tempPlayerTexture.loadFromFile("assets/textures/grrr.png"))
+	{
+		std::cerr << "Error: Failed to load player texture\n";
+	}
+	managerEntity->createPlayer(tempPlayerTexture, sf::Vector2f(500, 500), 10.f);
 	init_cameras();
 }
 
@@ -31,7 +36,6 @@ void Game::runGameLoop()
 		//================================================
 		// Updates
 		m_uiManager->generate_test_menu();
-
 		//================================================
 		// Render
 		m_window.clear();
@@ -39,7 +43,8 @@ void Game::runGameLoop()
 		// Render game
 		m_window.setView(m_stageCamera);
 		m_map->Draw(m_window);
-
+		managerEntity->draw(m_window);
+		managerEntity->update(m_deltaTime);
 		// Render UIs
 		m_window.setView(m_uiCamera);
 		m_uiManager->render_uis(m_window, m_uiCamera, m_stageCamera);
@@ -61,7 +66,6 @@ void Game::poll_events()
 		ImGui::SFML::ProcessEvent(m_window, *event);
 
 		m_uiManager->handle_ui_events(*event, m_window);
-
 		if (event->is<sf::Event::Closed>())
 		{
 			m_window.close();

@@ -35,8 +35,6 @@ void Player::setSpeed(float newSpeed)
 	speed = newSpeed;
 }
 
-
-
 void Player::update(float dt)
 {
 	handleInput();
@@ -44,5 +42,5 @@ void Player::update(float dt)
 
 void Player::draw(sf::RenderWindow& window)
 {
-	/*window.draw(sprite);*/
+	window.draw(getSprite());
 }

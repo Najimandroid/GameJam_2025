@@ -12,9 +12,9 @@ public:
 
 	Player(sf::Texture& texture, sf::Vector2f pos_, float _speed);
 
-	void update(float dt);
+	void update(float dt) override;
 
-	void draw(sf::RenderWindow& window);
+	void draw(sf::RenderWindow& window) override;
 
 	void handleInput();
 

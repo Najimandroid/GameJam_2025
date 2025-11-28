@@ -14,11 +14,27 @@ EntityManager::~EntityManager()
 	allEnnemies.clear();
 	allEntities.clear();
 }
-void EntityManager::createPlayer(sf::Texture& _textPlayer, sf::Vector2f _pos, float _speed)
+void EntityManager::createPlayer(sf::Texture& _textPlayer, sf::Vector2f _pos_, float _speed)
 {
-	std::shared_ptr<Player> p = std::make_shared<Player>(_textPlayer, _pos, _speed);
+	std::shared_ptr<Player> p = std::make_shared<Player>(_textPlayer, _pos_, _speed);
 	allPlayers.push_back(p);
 	allEntities.push_back(p);
+}
+
+void EntityManager::draw(sf::RenderWindow& window)
+{
+	for (const auto& entity : allEntities)
+	{
+		entity->draw(window);
+	}
+}
+
+void EntityManager::update(float _dt)
+{
+	for (const auto& entity : allEntities)
+	{
+		entity->update(_dt);
+	}
 }
 
 std::vector<std::shared_ptr<Entity>> EntityManager::getAllPlayers() const { return allPlayers; }
@@ -27,4 +43,4 @@ std::vector<std::shared_ptr<Entity>> EntityManager::getAllEnnemies() const { ret
 std::vector<std::shared_ptr<Entity>> EntityManager::getAllEntities() const { return allEntities; }
 
 EntityManager* EntityManager::instance = nullptr;
-EntityManager* manager = EntityManager::getInstance();
+EntityManager* managerEntity = EntityManager::getInstance();

@@ -2,7 +2,9 @@
 
 #include "imgui.h"
 #include "imgui-SFML.h"
+#include "../../EntityManager.h"
 
+#include <memory>
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>

@@ -16,7 +16,7 @@ public:
     std::vector<sf::FloatRect> GetCollisionBounds() const;
     std::vector<sf::FloatRect> GetSlowBounds() const;
     void Reset();
-
+    bool isLoaded() { return loaded; }
     void update(float dt);
 private:
     static Map* instance;
@@ -46,6 +46,8 @@ private:
     bool m_showDebug = false;
     float debugActivationTime = 2.5f;
     float debugCooldown = 0.f;
+
+    bool loaded = false;
 };
 
 extern Map* managerMap;

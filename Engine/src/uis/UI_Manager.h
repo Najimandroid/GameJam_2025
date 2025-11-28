@@ -46,9 +46,13 @@ public:
     // Returns true if a given world position overlaps any UI element
     bool is_mouse_over_ui(const sf::Vector2i& worldPosition) const;
 
+    void set_game_launch_callback(std::function<void()> callback);
+
 private:
 
     std::vector<std::shared_ptr<UI_Element>> m_uiElements;      // All active UI elements
 
     std::function<void()> m_pendingAction;                      // Deferred action triggered by UI
+
+    std::function<void()> m_launchGameCallback;
 };

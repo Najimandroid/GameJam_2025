@@ -60,6 +60,8 @@ bool Map::LoadFromFile(const std::string& filePath)
         m_debugColliders.push_back(rect);
     }
 
+    loaded = true;
+
     return true;
 }
 
@@ -171,6 +173,7 @@ std::vector<sf::FloatRect> Map::GetSlowBounds() const
 
 void Map::Reset()
 {
+    loaded = false;
     if (!m_filePath.empty())
     {
         LoadFromFile(m_filePath);

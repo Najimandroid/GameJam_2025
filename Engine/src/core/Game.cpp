@@ -19,6 +19,7 @@ void Game::runGameLoop()
 {
 	// Temporary
 	m_map->LoadFromFile("assets/levels/Map.txt");
+	m_uiManager->generate_menu();
 
 	while (m_window.isOpen())
 	{
@@ -30,7 +31,6 @@ void Game::runGameLoop()
 
 		//================================================
 		// Updates
-		m_uiManager->generate_test_menu();
 
 		//================================================
 		// Render

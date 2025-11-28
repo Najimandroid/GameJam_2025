@@ -66,39 +66,92 @@ void UI_Manager::handle_ui_events(const sf::Event& event, const sf::RenderWindow
     }
 }
 
-void UI_Manager::generate_test_menu()
+void UI_Manager::generate_menu()
 {
     m_uiElements.clear();
 
-    auto title = std::make_shared<UI_Text>(
-        sf::Vector2f{ 50.f, 50.f },
-        sf::Vector2f{ 0.f, 0.f },
-        "Test Text",
-        48
-    );
-
-    auto button = std::make_shared<UI_TextButton>(
-        sf::Vector2f{ 100.f, 300.f },
-        sf::Vector2f{ 200.f, 80.f },
-        "Test Button"
-    );
-    button->set_callback([this]()
-        {
-            m_pendingAction = [this]() {
-                std::cout << "Button clicked!\n";
-                };
-        });
-
-    auto texture = std::make_shared<UI_Texture>(
-        sf::Vector2f{ 0.f, 0.f },
-        sf::Vector2f{ 1920.f, 1080.f },
+    auto assetBackground = std::make_shared<UI_Texture>(
+        sf::Vector2f{ 0 , 0 },
+        sf::Vector2f{ 1920 , 1080 },
         "assets/textures/cat.png"
     );
 
-    add_ui_element(texture);
-    add_ui_element(button);      
+    auto title = std::make_shared<UI_Text>(
+        sf::Vector2f{ 750.f, 100.f },
+        sf::Vector2f{ 100.f, 100.f },
+        "   "
+    );
+    auto assetTitle = std::make_shared<UI_Texture>(
+        sf::Vector2f{ 0 , 0 },
+        sf::Vector2f{ 200 , 200 },
+        "assets/textures/cat.png"
+    );
+
+    auto play = std::make_shared<UI_TextButton>(
+        sf::Vector2f{ 700.f, 500.f },
+        sf::Vector2f{ 200.f, 100.f },
+        "   "
+    );
+    //play->set_fill_color(sf::Color::Transparent);
+    auto assetPlay = std::make_shared<UI_Texture>(
+        sf::Vector2f{ 0 , 0 },
+        sf::Vector2f{ 200 , 200 },
+        "assets/textures/cat.png"
+    );
+    play->set_callback([this]()
+        {
+            m_pendingAction = [this]() {
+                std::cout << "Button clicked!\n";
+            };
+    });
+
+    auto exit = std::make_shared<UI_TextButton>(
+        sf::Vector2f{ 1100.f, 500.f },
+        sf::Vector2f{ 200.f, 100.f },
+        "   "
+    );
+   // exit->set_fill_color(sf::Color::Transparent);
+    auto assetExit = std::make_shared<UI_Texture>(
+        sf::Vector2f{ 0 , 0 },
+        sf::Vector2f{ 200 , 200 },
+        "assets/textures/cat.png"
+    );
+    exit->set_callback([this]()
+        {
+            m_pendingAction = [this]() {
+                std::cout << "Button clicked!\n";
+            };
+    });
+
+    auto sound = std::make_shared<UI_TextButton>(
+        sf::Vector2f{ 50.f, 50.f },
+        sf::Vector2f{ 50.f, 50.f },
+        "    "  
+    );
+    //sound->set_fill_color(sf::Color::Transparent);
+    auto assetSound = std::make_shared<UI_Texture>(
+        sf::Vector2f{ 0 , 0 },
+        sf::Vector2f{ 200 , 200 },
+        "assets/textures/cat.png"
+    );
+    sound->set_callback([this]()
+        {
+            m_pendingAction = [this]() {
+                std::cout << "Button clicked!\n";
+            };
+    });
+
+
     add_ui_element(title);
-}
+    add_ui_element(play);
+    add_ui_element(exit);
+    add_ui_element(sound);
+    add_ui_element(assetBackground);
+    add_ui_element(assetTitle);
+    add_ui_element(assetPlay);
+    add_ui_element(assetExit);
+    add_ui_element(assetSound);
+};
 
 bool UI_Manager::is_mouse_over_ui(const sf::Vector2i& worldPosition) const
 {

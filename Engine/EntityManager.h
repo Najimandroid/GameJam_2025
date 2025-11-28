@@ -19,7 +19,7 @@ private:
 public:
 	static EntityManager* getInstance();
 	~EntityManager();
-	void createPlayer(sf::Texture& _textPlayer, sf::Vector2f _pos, float _speed);
+	void createPlayer(std::vector<std::shared_ptr<sf::Texture>>& _textPlayer, sf::Vector2f _pos, float _speed);
 
 	std::vector<std::shared_ptr<Entity>> getAllPlayers() const;
 

@@ -52,6 +52,7 @@
     <ClCompile Include="src\uis\widgets\UI_Text.cpp" />
     <ClCompile Include="src\uis\widgets\UI_TextButton.cpp" />
     <ClCompile Include="src\uis\widgets\Ui_Texture.cpp" />
+    <ClCompile Include="TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini">
@@ -66,6 +67,7 @@
     <ClInclude Include="src\uis\widgets\UI_Text.h" />
     <ClInclude Include="src\uis\widgets\UI_TextButton.h" />
     <ClInclude Include="src\uis\widgets\UI_Texture.h" />
+    <ClInclude Include="TextureManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="assets\levels\Map.txt" />

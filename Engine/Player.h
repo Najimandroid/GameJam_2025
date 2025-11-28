@@ -25,7 +25,7 @@ private:
 
 public:
 
-	Player(sf::Texture& texture, sf::Vector2f pos_, float _speed);
+	Player(std::vector<std::shared_ptr<sf::Texture>>& _textures, sf::Vector2f pos_, float _speed);
 
 	void update(float dt);
 

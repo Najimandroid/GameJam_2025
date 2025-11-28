@@ -1,8 +1,6 @@
 #include "Player.h"
 #include "HandleCollisions.h"
 
-HandleCollisions collision;
-
 Player::Player(sf::Texture& _texture, sf::Vector2f _pos_, float _speed) : speed(_speed), Entity(_texture, _pos_) {
 
 }
@@ -43,7 +41,7 @@ void Player::setSpeed(float newSpeed)
 void Player::update(float dt)
 {
 	handleInput();
-	if (collision.collisions() > 0) {
+	if (manager->collisions() > 0) {
 		velocity = { 0 , 0 };
 	}
 }

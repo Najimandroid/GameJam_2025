@@ -63,6 +63,10 @@ void Player::handleInput(float dt)
 		isGrounded = false;
 		setState(PlayerState::JUMPING);
 	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LShift))
+	{
+		HandleTeleport();
+	}
 }
 
 sf::FloatRect Player::getHB()
@@ -96,28 +100,25 @@ void Player::setState(PlayerState newState)
 	}
 }
 
-void Player::HandleAutoTeleport(float dt)
+void Player::HandleTeleport()
 {
 	// Increase timer
-	m_teleportTimer += dt;
-
 	// Check if interval reached
-	if (m_teleportTimer >= TELEPORT_INTERVAL)
+	if (teleportCooldown.getElapsedTime().asSeconds() >= 2.f)
 	{
-		m_teleportTimer = 0.0f;
-
+		teleportCooldown.restart();
 		// Random side: 0 = left, 1 = right
 		int side = rand() % 2;
 
 		if (side == 0)
 		{
-			// Teleport left
-			pos.x = 50.0f;   // Example left position
+			
+			pos.x -= 500.f;  // Example left position
 		}
 		else
 		{
 			// Teleport right
-			pos.x = 1800.0f; // Example right position
+			pos.x += 500.f; // Example right position
 		}
 
 		// Update hitbox and sprite positions
@@ -135,7 +136,6 @@ void Player::update(float dt)
 {
 	handleInput(dt);
 	animate(dt);
-	//HandleAutoTeleport(dt);
 
 	// Appliquer la gravité
 	velocity.y += gravity * dt;

@@ -67,6 +67,7 @@ private:
 
     // Window and Cameras (Views)
     sf::RenderWindow m_window;
+    sf::Vector2f stageCamPos;
     sf::View m_uiCamera;           // Camera used to render UI elements
     sf::View m_stageCamera;        // Camera used to render the gameplay/stage
 

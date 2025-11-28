@@ -47,6 +47,19 @@ bool Map::LoadFromFile(const std::string& filePath)
     }
 
     file.close();
+
+    for (const auto& b : GetCollisionBounds())
+    {
+        sf::RectangleShape rect(b.size);
+        rect.setPosition(b.position);
+
+        rect.setFillColor(sf::Color::Transparent);
+        rect.setOutlineThickness(2.f);
+        rect.setOutlineColor(sf::Color::Blue);
+
+        m_debugColliders.push_back(rect);
+    }
+
     return true;
 }
 
@@ -89,10 +102,40 @@ void Map::CreateTile(char symbol, float x, float y)
     }
 }
 
-void Map::Draw(sf::RenderWindow& window) const
+void Map::update(float dt)
+{
+    if (m_showDebug)
+    {
+        debugCooldown += dt;
+
+        if (debugCooldown >= debugActivationTime)
+        {
+            m_showDebug = false;
+            debugCooldown = 0.f;
+        }
+    }
+}
+
+void Map::Draw(sf::RenderWindow& window)
 {
     for (const auto& tile : m_tiles)
         window.draw(tile);
+}
+
+void Map::DrawDebug(sf::RenderWindow& window)
+{
+    int randomNum = rand() % 150 + 1;
+
+    if (randomNum == 5 && debugCooldown == 0.f)
+    {
+        m_showDebug = true;
+    }
+
+    if (m_showDebug)
+    {
+        for (const auto& rect : m_debugColliders)
+            window.draw(rect);
+    }
 }
 
 sf::Vector2f Map::GetPlayerSpawn() const

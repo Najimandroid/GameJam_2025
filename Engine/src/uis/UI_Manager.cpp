@@ -119,7 +119,89 @@ void UI_Manager::generate_menu()
     add_ui_element(assetExit);
     add_ui_element(exit);
     
-};
+}
+void UI_Manager::win_menu()
+{
+    m_uiElements.clear();
+
+    auto background = std::make_shared<UI_Texture>(
+        sf::Vector2f{ 0 , 0 },
+        sf::Vector2f{ 1920 , 1080 },
+        "assets/textures/Background.png"
+    );
+
+    auto winTitle = std::make_shared<UI_Text>(
+        sf::Vector2f{ 650.f, 100.f },
+        sf::Vector2f{ 1000.f, 1000.f },
+        "  You Win ! ",
+        70
+    );
+
+    auto exit = std::make_shared<UI_TextButton>(
+        sf::Vector2f{ 1100.f, 500.f },
+        sf::Vector2f{ 200.f, 190.f },
+
+        "   "
+    );
+
+    exit->set_fill_color(sf::Color::Transparent);
+    auto assetExit = std::make_shared<UI_Texture>(
+        sf::Vector2f{ 1100 , 500 },
+        sf::Vector2f{ 306 , 187 },
+        "assets/textures/quit.png"
+    );
+
+    exit->set_callback([this]
+    {
+
+    });
+
+    add_ui_element(background);
+    add_ui_element(winTitle);
+    add_ui_element(exit);
+}
+
+void UI_Manager::game_over_menu()
+{
+    m_uiElements.clear();
+
+    auto background = std::make_shared<UI_Texture>(
+        sf::Vector2f{ 0 , 0 },
+        sf::Vector2f{ 1920 , 1080 },
+        "assets/textures/Background.png"
+    );
+
+    auto winTitle = std::make_shared<UI_Text>(
+        sf::Vector2f{ 650.f, 100.f },
+        sf::Vector2f{ 1000.f, 1000.f },
+        "  GAME OVER ",
+        70
+    );
+
+    auto exit = std::make_shared<UI_TextButton>(
+        sf::Vector2f{ 1100.f, 500.f },
+        sf::Vector2f{ 200.f, 190.f },
+
+        "   "
+    );
+
+    exit->set_fill_color(sf::Color::Transparent);
+    auto assetExit = std::make_shared<UI_Texture>(
+        sf::Vector2f{ 1100 , 500 },
+        sf::Vector2f{ 306 , 187 },
+        "assets/textures/quit.png"
+    );
+
+    exit->set_callback([this]
+    {
+        
+    });
+
+    add_ui_element(background);
+    add_ui_element(winTitle);
+    add_ui_element(exit);
+}
+
 
 bool UI_Manager::is_mouse_over_ui(const sf::Vector2i& worldPosition) const
 {

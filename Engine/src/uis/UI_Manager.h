@@ -43,6 +43,10 @@ public:
     // void generate_X_menu();
     void generate_menu();
 
+    void win_menu();
+
+    void game_over_menu();
+
     // Returns true if a given world position overlaps any UI element
     bool is_mouse_over_ui(const sf::Vector2i& worldPosition) const;
 

@@ -26,7 +26,7 @@ void Game::runGameLoop()
 	sf::Texture texture;
 	texture.loadFromFile("assets/textures/Player/Idle.png");
 
-	managerEntity->createPlayer(textureManager->getPlayerTextures(), sf::Vector2f(500, 500), 400);
+	managerEntity->createPlayer(textureManager->getPlayerTextures(), sf::Vector2f(500, 0), 400);
 
 
 	while (m_window.isOpen())
@@ -40,7 +40,7 @@ void Game::runGameLoop()
 		//================================================
 		// Updates
 		m_uiManager->generate_test_menu();
-		managerEntity->getAllPlayers()[0]->update(0.016f);
+		managerEntity->getAllPlayers()[0]->update(m_deltaTime);
 		//player.update(0.016f);
 
 		//================================================

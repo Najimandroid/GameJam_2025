@@ -3,18 +3,20 @@
 
 enum class PlayerState
 {
-	Idle,
-	Walk,
-	Jump,
+	IDLE,
+	WALKING,
+	JUMPING,
 
 };
 
 class Player : public Entity
 {
 private:
-	float speed;
+	float speed = 100.f;
 	float animationTime;
 	float scale = 5.f;
+
+	sf::RectangleShape m_hitbox;
 
 	sf::Vector2f velocity = { 0,0 };
 
@@ -22,6 +24,16 @@ private:
 	std::unordered_map<PlayerState, float> animationCooldowns;
 
 	PlayerState state;
+
+	
+public:
+
+	bool isGrounded = false;
+
+	bool isJumping = false;
+
+	float gravity = 9.81f * 60;
+	float jumpforce = 300.f;
 
 public:
 
@@ -31,7 +43,9 @@ public:
 
 	void draw(sf::RenderWindow& window) override;
 
-	void handleInput();
+	void animate(float dt);
+
+	void handleInput(float dt);
 
 	sf::FloatRect getHB();
 
@@ -42,5 +56,7 @@ public:
 	PlayerState getState();
 
 	void setState(PlayerState newState);
+
+	bool collides(const sf::Vector2f& nexPos);
 };
 

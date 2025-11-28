@@ -8,15 +8,14 @@ class HandleCollisions
 public:
 	static HandleCollisions* getInstance();
 
-	int getCollisionSide() { return collisionSide; }
+	std::vector<int>& getCollisionSides() { return collisionSides; }
 
 	void collisions();
 
 	bool isGameRunning = true;
 
 private:
-
-	int collisionSide = 0;
+	std::vector<int> collisionSides;
 
 	static HandleCollisions* instance;
 

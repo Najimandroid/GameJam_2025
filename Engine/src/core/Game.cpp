@@ -23,7 +23,7 @@ void Game::runGameLoop()
 	sf::Texture texture;
 	texture.loadFromFile("assets/textures/Player/Idle.png");
 
-	Player player(texture, sf::Vector2f(500, 500), 800);
+	Player player(texture, sf::Vector2f(500, 500), 400);
 
 	while (m_window.isOpen())
 	{

@@ -112,7 +112,7 @@ void Player::update(float dt)
 		}
 	}
 
-	getSprite().move(velocity);
+	getSprite().move(velocity * dt * speed);
 }
 
 void Player::draw(sf::RenderWindow& window)

@@ -23,7 +23,7 @@ Player::Player(std::vector<std::shared_ptr<sf::Texture>>& _textures, sf::Vector2
 
 void Player::handleInput(float dt)
 {
-	velocity = { 0,0 };
+	velocity.x = 0;
 
 	bool canWalkRight = true;
 	bool canWalkLeft = true;
@@ -39,7 +39,7 @@ void Player::handleInput(float dt)
 	{
 		if (canWalkLeft)
 		{
-			velocity.x -= speed * dt;
+			velocity.x -= speed;
 			setState(PlayerState::WALKING);
 			sprite.setScale({ -scale, scale });
 		}
@@ -48,22 +48,18 @@ void Player::handleInput(float dt)
 	{
 		if (canWalkRight)
 		{
-			velocity.x += speed * dt;
+			velocity.x += speed;
 			setState(PlayerState::WALKING);
 			sprite.setScale({ scale, scale });
 		}
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Z) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
+	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Z) ||
+		sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) && isGrounded)
 	{
-		if (isGrounded)
-		{
-			isJumping = true;
-			isGrounded = false;
-
-			velocity.y -= jumpforce + gravity * dt;
-			setState(PlayerState::JUMPING);
-			sprite.setScale({ scale, scale });
-		}
+		velocity.y = -jumpforce; // initial jump velocity
+		isJumping = true;
+		isGrounded = false;
+		setState(PlayerState::JUMPING);
 	}
 }
 
@@ -100,53 +96,58 @@ void Player::setState(PlayerState newState)
 
 void Player::update(float dt)
 {
-	m_hitbox.setPosition(pos);
-
 	handleInput(dt);
-
 	animate(dt);
 
-	// Apply gravity
+	// Appliquer la gravité
 	velocity.y += gravity * dt;
 
-	// Predict new position
-	sf::Vector2f newPos = pos + velocity;
+	// Calculer tentative de nouvelle position
+	sf::Vector2f newPos = pos + velocity * dt;
 
-	// Horizontal collision
+	// Vérifier collisions horizontales
 	sf::Vector2f testPosX = { newPos.x, pos.y };
 	if (collides(testPosX))
 	{
 		velocity.x = 0;
-		testPosX.x = pos.x;
+		testPosX.x = pos.x; // annule déplacement horizontal
 	}
 
-	// Vertical collision
+	// Vérifier collisions verticales
 	sf::Vector2f testPosY = { testPosX.x, newPos.y };
 	if (collides(testPosY))
 	{
-		if (velocity.y > 0)
+		if (velocity.y > 0) // atterrissage
 		{
-			// Landing on ground
 			isGrounded = true;
 			isJumping = false;
 		}
-		else if (velocity.y < 0)
+		else if (velocity.y < 0) // plafond
 		{
-			// Hitting ceiling
 			isJumping = true;
 		}
 		velocity.y = 0;
-		testPosY.y = pos.y; // Prevent penetration
+
+		testPosY.y = pos.y;
 	}
 	else
 	{
 		isGrounded = false;
 	}
 
-	// Apply final position
+	// Appliquer la position finale
 	pos = testPosY;
 	m_hitbox.setPosition(pos);
+
+	// Synchroniser sprite avec hitbox
+	sprite.setPosition(
+		{
+			m_hitbox.getPosition().x + m_hitbox.getSize().x / 2.f,
+			m_hitbox.getPosition().y - m_hitbox.getSize().y / 2.f,
+		}
+		);
 }
+
 
 bool Player::collides(const sf::Vector2f& testPos)
 {

@@ -33,7 +33,7 @@ public:
 	bool isJumping = false;
 
 	float gravity = 9.81f * 60;
-	float jumpforce = 300.f;
+	float jumpforce = 700.f;
 
 public:
 

@@ -27,4 +27,4 @@ std::vector<std::shared_ptr<Entity>> EntityManager::getAllEnnemies() const { ret
 std::vector<std::shared_ptr<Entity>> EntityManager::getAllEntities() const { return allEntities; }
 
 EntityManager* EntityManager::instance = nullptr;
-EntityManager* manager = EntityManager::getInstance();
+EntityManager* managerEntity = EntityManager::getInstance();

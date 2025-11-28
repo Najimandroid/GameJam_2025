@@ -2,8 +2,15 @@
 #include <fstream>
 #include <iostream>
 
-Map::Map() : m_tileSize(120.0f)
+Map* Map::getInstance()
 {
+    if (instance == nullptr) { instance = new Map(); }
+    return instance;
+}
+
+void Map::LoadTexture()
+{
+    m_tileSize = 120.0f;
     if (!m_groundTexture.loadFromFile("assets/textures/placeholder_tile_ground.png"))
     {
         std::cerr << "Error: Failed to load ground texture\n";
@@ -195,5 +202,5 @@ void Map::Reset()
     }
 }
 
-
-
+Map* Map::instance = nullptr;
+Map* managerMap = Map::getInstance();

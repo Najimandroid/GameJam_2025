@@ -6,9 +6,10 @@
 class Map
 {
 public:
-    Map();
+    static Map* getInstance();
     bool LoadFromFile(const std::string& filePath);
     void Draw(sf::RenderWindow& window) const;
+    void LoadTexture();
     sf::Vector2f GetPlayerSpawn() const;
     sf::Vector2f GetItemSpawn() const;
     std::vector<sf::FloatRect> GetCollisionBounds() const;
@@ -16,6 +17,8 @@ public:
     void Reset();
 
 private:
+    static Map* instance;
+    Map(){}
     void CreateTile(char symbol, float x, float y);
 
     std::vector<sf::Sprite> m_tiles;
@@ -37,4 +40,4 @@ private:
     sf::Vector2f m_itemSpawn;
 };
 
-
+extern Map* managerMap;

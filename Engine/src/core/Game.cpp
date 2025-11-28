@@ -2,28 +2,29 @@
 
 #include <memory>
 
+std::thread tCollisions(&HandleCollisions::collisions, managerCollisions);
+
 Game::Game():
-	m_uiManager(std::make_unique<UI_Manager>()),
-	m_map(std::make_unique<Map>())
+	m_uiManager(std::make_unique<UI_Manager>())
 {
+	managerMap->LoadTexture();
 	m_window.create(sf::VideoMode::getDesktopMode(), "Game Jam 2025", sf::Style::None); //sf::Style::None
 	m_window.setFramerateLimit(m_frameRate);
 	center_window();
 
 	ImGui::SFML::Init(m_window);
-
 	init_cameras();
 }
 
 void Game::runGameLoop()
 {
 	// Temporary
-	m_map->LoadFromFile("assets/levels/Map.txt");
+	managerMap->LoadFromFile("assets/levels/Map.txt");
 
 	sf::Texture texture;
 	texture.loadFromFile("assets/textures/Player/Idle.png");
 
-	Player player(texture, sf::Vector2f(500, 500), 400);
+	managerEntity->createPlayer(texture, sf::Vector2f(200, 200), 50);
 
 	while (m_window.isOpen())
 	{
@@ -36,7 +37,8 @@ void Game::runGameLoop()
 		//================================================
 		// Updates
 		m_uiManager->generate_test_menu();
-		player.update(0.016f);
+		managerEntity->getAllPlayers()[0]->update(0.016f);
+		//player.update(0.016f);
 
 		//================================================
 		// Render
@@ -44,12 +46,13 @@ void Game::runGameLoop()
 
 		// Render game
 		m_window.setView(m_stageCamera);
-		m_map->Draw(m_window);
+		managerMap->Draw(m_window);
 
 		// Render UIs
 		m_window.setView(m_uiCamera);
 		m_uiManager->render_uis(m_window, m_uiCamera, m_stageCamera);
-		player.draw(m_window);
+		managerEntity->getAllPlayers()[0]->draw(m_window);
+		//player.draw(m_window);
 
 		m_window.display();
 	}
@@ -77,7 +80,12 @@ void Game::poll_events()
 		if (const auto* e_keycode = event->getIf<sf::Event::KeyPressed>())
 		{
 			// Close game
-			if (e_keycode->code == sf::Keyboard::Key::Escape) m_window.close();
+			if (e_keycode->code == sf::Keyboard::Key::Escape)
+			{
+				m_window.close(); 
+				managerCollisions->isGameRunning = false;
+				tCollisions.join();
+			}
 		}
 	}
 }

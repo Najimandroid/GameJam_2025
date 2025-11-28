@@ -1,24 +1,26 @@
 #pragma once
 #include "Player.h"
 #include "src/core/Map.h"
+#include "EntityManager.h"
 
 class HandleCollisions
 {
 public:
 	static HandleCollisions* getInstance();
 
-	int collisions();
+	int getCollisionSide() { return collisionSide; }
+
+	void collisions();
+
+	bool isGameRunning = true;
 
 private:
 
+	int collisionSide = 0;
 
 	static HandleCollisions* instance;
 
 	HandleCollisions() = default;
-
-	Player* player = nullptr;
-	Map* map = nullptr;
-
 };
 
-extern HandleCollisions* manager;
+extern HandleCollisions* managerCollisions;

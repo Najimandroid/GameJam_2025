@@ -112,11 +112,36 @@ void Player::update(float dt)
 				{ getSprite().getTextureRect().size.x, getSprite().getTextureRect().size.y }));
 		}
 	}
-
-	getSprite().move(velocity * dt * speed);
-	if (manager->collisions() > 0) {
-		velocity = { 0 , 0 };
+	switch (managerCollisions->getCollisionSide())
+	{
+	case 1:
+		if (velocity.y > 0)
+		{
+			velocity.y = 0;
+		}
+		break;
+	case 2:
+		if (velocity.y < 0)
+		{
+			velocity.y = 0;
+		}
+		break;
+	case 3:
+		if (velocity.x < 0)
+		{
+			velocity.x = 0;
+		}
+		break;
+	case 4:
+		if (velocity.x > 0)
+		{
+			velocity.x = 0;
+		}
+		break;
+	default:
+		break;
 	}
+	getSprite().move(velocity* dt* speed);
 }
 
 void Player::draw(sf::RenderWindow& window)

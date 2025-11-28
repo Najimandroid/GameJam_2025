@@ -2,10 +2,13 @@
 
 #include "imgui.h"
 #include "imgui-SFML.h"
+#include "../EntityManager.h"
+#include "../HandleCollisions.h"
 
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include <thread>
 
 #include "../uis/UI_Manager.h"  
 #include "Map.h"  
@@ -78,5 +81,4 @@ private:
 
     // We'll add unique_ptrs of all our other systems
     std::unique_ptr<UI_Manager> m_uiManager;
-    std::unique_ptr<Map> m_map;
 };

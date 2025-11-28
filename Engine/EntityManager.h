@@ -27,4 +27,4 @@ public:
 	std::vector<std::shared_ptr<Entity>> getAllEntities() const;
 };
 
-extern EntityManager* manager;
+extern EntityManager* managerEntity;

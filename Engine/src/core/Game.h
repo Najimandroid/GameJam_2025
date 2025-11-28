@@ -9,6 +9,7 @@
 
 #include "../uis/UI_Manager.h"  
 #include "Map.h"  
+#include "../Player.h"
 
 /*
  * Game class

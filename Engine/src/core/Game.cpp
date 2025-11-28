@@ -20,6 +20,11 @@ void Game::runGameLoop()
 	// Temporary
 	m_map->LoadFromFile("assets/levels/Map.txt");
 
+	sf::Texture texture;
+	texture.loadFromFile("assets/textures/Player/Idle.png");
+
+	Player player(texture, sf::Vector2f(500, 500), 800);
+
 	while (m_window.isOpen())
 	{
 		calculate_delta_time();
@@ -31,6 +36,7 @@ void Game::runGameLoop()
 		//================================================
 		// Updates
 		m_uiManager->generate_test_menu();
+		player.update(0.016f);
 
 		//================================================
 		// Render
@@ -43,6 +49,7 @@ void Game::runGameLoop()
 		// Render UIs
 		m_window.setView(m_uiCamera);
 		m_uiManager->render_uis(m_window, m_uiCamera, m_stageCamera);
+		player.draw(m_window);
 
 		m_window.display();
 	}

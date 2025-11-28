@@ -7,35 +7,41 @@ HandleCollisions* HandleCollisions::getInstance()
 	return instance;
 }
 
-
-
-
 void HandleCollisions::collisions()
 {
-	while (managerEntity->getAllPlayers().size() == 0) {}
+	collisionSides.reserve(4);
+
+	while (managerEntity->getAllPlayers().size() == 0) {}; // Wait for player
+
+	collisionSides.clear();
 
 	Player* player = dynamic_cast<Player*>(managerEntity->getAllPlayers()[0].get());
 
+	int colliding = 0;
+
+
 	while (isGameRunning)
 	{
+		collisionSides.clear();
+
 		for (auto wall : managerMap->GetCollisionBounds()) {
 			if (sf::FloatRect({ player->getHB().position.x , player->getHB().position.y + player->getHB().size.y - 1 }, { player->getHB().size.x,1 }).findIntersection(wall))
 			{
-				managerCollisions->collisionSide = 1; //Collision Bottom
+				collisionSides.push_back(1); //Collision Bottom
 			}
 			if (sf::FloatRect({ player->getHB().position.x, player->getHB().position.y }, { player->getHB().size.x, 1 }).findIntersection(wall))
 			{
-				managerCollisions->collisionSide = 2; //Collision Top
+				collisionSides.push_back(2); //Collision Top
 			}
 			if (sf::FloatRect({ player->getHB().position.x, player->getHB().position.y }, { 1, player->getHB().size.y }).findIntersection(wall))
 			{
-				managerCollisions->collisionSide = 3; //Collision Left
+				collisionSides.push_back(3); //Collision Left
 			}
-			if (sf::FloatRect({ player->getHB().position.x + player->getHB().size.x, player->getHB().position.y }, { 1, player->getHB().size.y }).findIntersection(wall)) {
-				managerCollisions->collisionSide = 4; //Collision Right
+			if (sf::FloatRect({ player->getHB().position.x + player->getHB().size.x, player->getHB().position.y }, { 1, player->getHB().size.y }).findIntersection(wall)) 
+			{
+				collisionSides.push_back(4); //Collision Right
 			}
 		}
-		managerCollisions->collisionSide = 0;
 	}
 }
 

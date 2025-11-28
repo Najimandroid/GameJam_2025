@@ -16,7 +16,7 @@ void Map::LoadTexture()
         std::cerr << "Error: Failed to load ground texture\n";
     }
 
-    if (!m_wallTexture.loadFromFile("assets/textures/sol.png"))
+    if (!m_wallTexture.loadFromFile("assets/textures/wall.png"))
     {
         std::cerr << "Error: Failed to load wall texture\n";
     }  

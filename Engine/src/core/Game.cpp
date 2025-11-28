@@ -5,11 +5,16 @@
 std::thread tCollisions(&HandleCollisions::collisions, managerCollisions);
 
 Game::Game():
-	m_uiManager(std::make_unique<UI_Manager>())
+	m_uiManager(std::make_unique<UI_Manager>()),
+	m_endGameItem(sf::Vector2f(1000.f, 600.f), sf::Vector2f(32.f, 32.f))
+
+
 {
+	
 	managerMap->LoadTexture();
 	m_window.create(sf::VideoMode::getDesktopMode(), "Game Jam 2025", sf::Style::None); //sf::Style::None
 	m_window.setFramerateLimit(m_frameRate);
+	
 	center_window();
 
 	ImGui::SFML::Init(m_window);
@@ -42,6 +47,27 @@ void Game::runGameLoop()
 		// Updates
 	
 		managerEntity->getAllPlayers()[0]->update(0.016f);
+		auto player = managerEntity->getAllPlayers()[0];
+		player->update(m_deltaTime);
+
+		// Check collision between player and end game item
+		sf::FloatRect playerBounds = player->GetBounds();
+		sf::FloatRect itemBounds = m_endGameItem.GetBounds();
+
+		auto intersectionOpt = playerBounds.findIntersection(itemBounds);
+
+		if (intersectionOpt.has_value())
+		{
+			sf::FloatRect intersection = intersectionOpt.value();
+
+			// Collision détectée : intersection contient la zone commune
+			m_window.close();
+			managerCollisions->isGameRunning = false;
+			if (tCollisions.joinable())
+				tCollisions.join();
+			break;
+		}
+
 		//player.update(0.016f);
 
 		//================================================
@@ -55,6 +81,7 @@ void Game::runGameLoop()
 		// Render UIs
 		m_window.setView(m_uiCamera);
 		m_uiManager->render_uis(m_window, m_uiCamera, m_stageCamera);
+		m_endGameItem.Draw(m_window);
 		managerEntity->getAllPlayers()[0]->draw(m_window);
 		//player.draw(m_window);
 

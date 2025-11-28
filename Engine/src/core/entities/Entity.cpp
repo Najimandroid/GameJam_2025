@@ -21,3 +21,8 @@ void Entity::setPos(sf::Vector2f newPos)
 {
     pos = newPos;
 }
+
+sf::FloatRect Entity::GetBounds() const
+{
+    return sprite.getGlobalBounds();
+}

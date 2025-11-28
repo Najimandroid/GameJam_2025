@@ -94,10 +94,46 @@ void Player::setState(PlayerState newState)
 	}
 }
 
+void Player::HandleAutoTeleport(float dt)
+{
+	// Increase timer
+	m_teleportTimer += dt;
+
+	// Check if interval reached
+	if (m_teleportTimer >= TELEPORT_INTERVAL)
+	{
+		m_teleportTimer = 0.0f;
+
+		// Random side: 0 = left, 1 = right
+		int side = rand() % 2;
+
+		if (side == 0)
+		{
+			// Teleport left
+			pos.x = 50.0f;   // Example left position
+		}
+		else
+		{
+			// Teleport right
+			pos.x = 1800.0f; // Example right position
+		}
+
+		// Update hitbox and sprite positions
+		m_hitbox.setPosition(pos);
+		sprite.setPosition(
+			{
+				m_hitbox.getPosition().x + m_hitbox.getSize().x / 2.f,
+				m_hitbox.getPosition().y - m_hitbox.getSize().y / 2.f
+			}
+		);
+	}
+}
+
 void Player::update(float dt)
 {
 	handleInput(dt);
 	animate(dt);
+	HandleAutoTeleport(dt);
 
 	// Appliquer la gravité
 	velocity.y += gravity * dt;

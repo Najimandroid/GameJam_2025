@@ -9,6 +9,7 @@
 #include "Map.h"
 #include "entities/Player.h"
 #include "../uis/UI_Manager.h"  
+#include "entities/victoire.h"
 
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics.hpp>
@@ -82,4 +83,5 @@ private:
 
     // We'll add unique_ptrs of all our other systems
     std::unique_ptr<UI_Manager> m_uiManager;
+    EndGameItem m_endGameItem;
 };

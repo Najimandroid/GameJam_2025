@@ -20,4 +20,5 @@ public:
     sf::Vector2f getPos();
 
     void setPos(sf::Vector2f newPos);
+    sf::FloatRect GetBounds() const;
 };

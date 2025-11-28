@@ -1,5 +1,6 @@
 #include "EntityManager.h"
 #include "TextureManager.h"
+#include "../../uis/UI_Manager.h"
 
 EntityManager* EntityManager::getInstance()
 {
@@ -15,9 +16,9 @@ EntityManager::~EntityManager()
 	allEnnemies.clear();
 	allEntities.clear();
 }
-void EntityManager::createPlayer(std::vector<std::shared_ptr<sf::Texture>>& _textPlayer, sf::Vector2f _pos, float _speed)
+void EntityManager::createPlayer(std::vector<std::shared_ptr<sf::Texture>>& _textPlayer, sf::Vector2f _pos, float _speed, UI_Manager* uimanager)
 {
-	std::shared_ptr<Player> p = std::make_shared<Player>(_textPlayer, _pos, _speed);
+	std::shared_ptr<Player> p = std::make_shared<Player>(_textPlayer, _pos, _speed, uimanager);
 	allPlayers.push_back(p);
 	allEntities.push_back(p);
 }

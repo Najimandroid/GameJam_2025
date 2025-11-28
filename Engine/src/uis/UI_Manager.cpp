@@ -14,6 +14,11 @@ UI_Manager::UI_Manager()
     m_uiElements.reserve(5);
 }
 
+void UI_Manager::init(Map* map)
+{
+    m_map = map;
+}
+
 // Add a UI element to the manager
 void UI_Manager::add_ui_element(std::shared_ptr<UI_Element> element)
 {
@@ -95,6 +100,7 @@ void UI_Manager::generate_menu()
         {
             m_pendingAction = [this]()
                 {
+                    m_map->Reset();
                     m_launchGameCallback();
                     m_uiElements.clear();
                 };
@@ -195,7 +201,15 @@ void UI_Manager::game_over_menu()
 
         "   "
     );
-
+    exit->set_callback([this]()
+        {
+            m_pendingAction = [this]()
+                {
+                    generate_menu();
+                };
+        }
+    );
+        
     exit->set_fill_color(sf::Color::Transparent);
     auto assetExit = std::make_shared<UI_Texture>(
         sf::Vector2f{ 1100 , 500 },
@@ -203,13 +217,14 @@ void UI_Manager::game_over_menu()
         "assets/textures/quit.png"
     );
 
-    exit->set_callback([this]
+    /*exit->set_callback([this]
     {
         
-    });
+    });*/
 
     add_ui_element(background);
     add_ui_element(winTitle);
+    add_ui_element(assetExit);
     add_ui_element(exit);
 }
 

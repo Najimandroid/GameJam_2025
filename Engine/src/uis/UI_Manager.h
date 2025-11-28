@@ -1,6 +1,7 @@
 #pragma once
 
 #include "widgets/UI_Element.h"
+#include "../core/Map.h"
 
 #include <SFML/Graphics.hpp>
 
@@ -26,6 +27,8 @@ class UI_Manager
 public:
 
     UI_Manager();
+
+    void init(Map* map);
 
     // Add a single UI element to the manager
     void add_ui_element(std::shared_ptr<UI_Element> element);
@@ -59,4 +62,6 @@ private:
     std::function<void()> m_pendingAction;                      // Deferred action triggered by UI
 
     std::function<void()> m_launchGameCallback;
+
+    Map* m_map;
 };

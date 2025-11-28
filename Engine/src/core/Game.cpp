@@ -24,9 +24,11 @@ Game::Game():
 			sf::Texture texture;
 			texture.loadFromFile("assets/textures/Player/Idle.png");
 
-			managerEntity->createPlayer(textureManager->getPlayerTextures(), sf::Vector2f(500, 0), 400);
+			managerEntity->createPlayer(textureManager->getPlayerTextures(), sf::Vector2f(500, 0), 400, m_uiManager.get());
 		}
 	);
+
+	m_uiManager->init(managerMap->getInstance());
 
 	ImGui::SFML::Init(m_window);
 	init_cameras();

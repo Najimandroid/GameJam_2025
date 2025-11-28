@@ -1,6 +1,6 @@
 #pragma once
 #include "Entity.h"
-
+#include "../../uis/UI_Manager.h"
 enum class PlayerState
 {
 	IDLE,
@@ -24,6 +24,7 @@ private:
 	std::unordered_map<PlayerState, float> animationCooldowns;
 
 	PlayerState state;
+	UI_Manager* managerUI;
 
 	sf::Clock teleportCooldown;
 	void HandleTeleport();
@@ -41,7 +42,7 @@ public:
 
 public:
 
-	Player(std::vector<std::shared_ptr<sf::Texture>>& _textures, sf::Vector2f pos_, float _speed);
+	Player(std::vector<std::shared_ptr<sf::Texture>>& _textures, sf::Vector2f pos_, float _speed, UI_Manager* uiManager);
 
 	void update(float dt);
 

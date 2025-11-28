@@ -1,8 +1,11 @@
 #include "Player.h"
 #include "../systems/HandleCollisions.h"
 
-Player::Player(std::vector<std::shared_ptr<sf::Texture>>& _textures, sf::Vector2f _pos_, float _speed) : speed(_speed), Entity(*_textures[0], _pos_)
+
+Player::Player(std::vector<std::shared_ptr<sf::Texture>>& _textures, sf::Vector2f _pos_, float _speed, UI_Manager* uimanager) : speed(_speed), Entity(*_textures[0], _pos_)
 {	
+	managerUI = uimanager;
+
 	textures.emplace(PlayerState::IDLE, _textures[0]);
 	textures.emplace(PlayerState::WALKING, _textures[1]);
 	textures.emplace(PlayerState::JUMPING, _textures[2]);
@@ -203,11 +206,12 @@ void Player::update(float dt)
 			pos = managerMap->GetPlayerSpawn();
 			m_hitbox.setPosition(pos);
 
-			sprite.setPosition(
+			/*sprite.setPosition(
 				{
 					pos.x + m_hitbox.getSize().x / 2.f,
 					pos.y - m_hitbox.getSize().y / 2.f
-				});
+				});*/
+			managerUI->game_over_menu();
 
 			velocity = { 0.f, 0.f };
 			isGrounded = false;

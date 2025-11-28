@@ -10,11 +10,6 @@ Game::Game():
 
 
 {
-<<<<<<< HEAD
-	
-	managerMap->LoadTexture();
-=======
->>>>>>> 06ae5d43e6da86216a38b7e167c5d1ba797a5075
 	m_window.create(sf::VideoMode::getDesktopMode(), "Game Jam 2025", sf::Style::None); //sf::Style::None
 	m_window.setFramerateLimit(m_frameRate);
 	
@@ -52,8 +47,7 @@ void Game::runGameLoop()
 		//================================================
 		// Updates
 	
-<<<<<<< HEAD
-		managerEntity->getAllPlayers()[0]->update(0.016f);
+		managerEntity->getAllPlayers()[0]->update(m_deltaTime);
 		auto player = managerEntity->getAllPlayers()[0];
 		player->update(m_deltaTime);
 
@@ -74,11 +68,6 @@ void Game::runGameLoop()
 				tCollisions.join();
 			break;
 		}
-
-=======
-		managerEntity->getAllPlayers()[0]->update(m_deltaTime);
->>>>>>> 06ae5d43e6da86216a38b7e167c5d1ba797a5075
-		//player.update(0.016f);
 		managerMap->update(m_deltaTime);
 
 		//================================================

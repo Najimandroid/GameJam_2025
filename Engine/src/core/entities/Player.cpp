@@ -3,11 +3,6 @@
 
 Player::Player(std::vector<std::shared_ptr<sf::Texture>>& _textures, sf::Vector2f _pos_, float _speed) : speed(_speed), Entity(*_textures[0], _pos_)
 {	
-	for (auto& tex : _textures)
-	{
-		std::cout << tex->getSize().x << std::endl;
-	}
-	
 	textures.emplace(PlayerState::IDLE, _textures[0]);
 	textures.emplace(PlayerState::WALKING, _textures[1]);
 	textures.emplace(PlayerState::JUMPING, _textures[2]);

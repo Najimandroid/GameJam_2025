@@ -47,7 +47,7 @@ private:
     sf::Vector2f m_itemSpawn;
 
     bool m_showDebug = false;
-    float debugActivationTime = 2.5f;
+    float debugActivationTime = 0.75f;
     float debugCooldown = 0.f;
 
     bool loaded = false;

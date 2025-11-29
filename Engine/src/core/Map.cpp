@@ -16,7 +16,7 @@ namespace {
 
 	float s_animTimer = 0.f;
 	std::size_t s_animFrame = 0;
-	const float s_frameDuration = 0.12f; // durée d'une frame en secondes (ajustable)
+	const float s_frameDuration = 0.06f; // durée d'une frame en secondes (ajustable)
 
 	bool s_prevShowDebug = false; // état précédent pour détecter transition
 }

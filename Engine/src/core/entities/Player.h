@@ -69,5 +69,7 @@ public:
 	void setState(PlayerState newState);
 
 	bool collides(const sf::Vector2f& nexPos);
+
+	void Reset();
 };
 

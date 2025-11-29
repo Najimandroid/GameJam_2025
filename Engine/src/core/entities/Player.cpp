@@ -302,3 +302,13 @@ void Player::animate(float dt)
 		}
 	);
 }
+
+void Player::Reset()
+{
+    // réinitialise la position à l'emplacement spawn de la map
+    auto spawn = Map::getInstance()->GetPlayerSpawn();
+    pos = spawn; // adapte au nom réel de ta méthode pour positionner le joueur
+
+    // réinitialiser vitesse & états
+    velocity = {0.f, 0.f};      // ou ton équivalent
+}

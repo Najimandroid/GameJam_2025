@@ -403,10 +403,35 @@ std::vector<sf::FloatRect> Map::GetDeadlyBounds() const
 
 void Map::Reset()
 {
+    // Vider tout l'état dynamique de la map
+    m_tiles.clear();
+    m_deadlyBounds.clear();
+    m_slowBounds.clear();
+    m_debugColliders.clear();
+
+    // Vider les vecteurs d'info locaux
+    s_tileTypes.clear();
+    s_deadlyTypes.clear();
+    s_tileOriginalScales.clear();
+    s_deadlyOriginalScales.clear();
+
+    // Réinitialiser l'état d'animation / debug local
+    s_animTimer = 0.f;
+    s_animFrame = 0;
+    s_prevShowDebug = false;
+
+    // Réinitialiser les flags membres
+    m_showDebug = false;
+    debugCooldown = 0.f;
     loaded = false;
+
+    // Recharge la map si on a un chemin enregistré
     if (!m_filePath.empty())
     {
-        LoadFromFile(m_filePath);
+        if (!LoadFromFile(m_filePath))
+        {
+            std::cerr << "Map::Reset - échec du chargement depuis : " << m_filePath << std::endl;
+        }
     }
     else
     {

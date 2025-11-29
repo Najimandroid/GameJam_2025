@@ -6,7 +6,7 @@ std::thread tCollisions(&HandleCollisions::collisions, managerCollisions);
 
 Game::Game():
 	m_uiManager(std::make_unique<UI_Manager>()),
-	m_endGameItem(sf::Vector2f(15000.f, 500.f), sf::Vector2f(32.f, 32.f))
+	m_endGameItem(sf::Vector2f(13000.f, 500.f), sf::Vector2f(32.f, 32.f))
 {
 	m_window.create(sf::VideoMode::getDesktopMode(), "Game Jam 2025", sf::Style::None); //sf::Style::None
 	m_window.setFramerateLimit(m_frameRate);
